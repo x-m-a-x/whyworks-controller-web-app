@@ -1,0 +1,26 @@
+.logo {
+    height: 40%;
+    width: 300px;
+}
+
+.logo-mobile {
+    height: 80%;
+    width: 20%;
+}
+
+.master-spacer {
+    flex: 1 1 auto;
+}
+
+.main-toolbar {
+    height:5%;
+    position: sticky;
+    top: 0px;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
+.nav-bar-selected {
+    background-color: white;
+    color: black;
+}

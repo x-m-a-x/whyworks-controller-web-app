@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "whyworks-controller-web-app": {
@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "whyworks-controller-web-app"
+    }
+  },
+  "defaultProject": "whyworks-controller-web-app",
+  "cli": {
+    "analytics": "904b93de-b47b-4ad0-a1cd-acf0f78214ad"
+  }
 }

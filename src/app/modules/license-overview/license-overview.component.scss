@@ -1,0 +1,48 @@
+.container_licenses {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 20px;
+}
+
+.license-table {
+    width: 85%;
+}
+
+.license-table-mobile {
+  width: 95% !important;
+}
+
+.loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 1px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+  
+  .filter-licenses {
+    margin-top: 5px;
+    margin-left: 20px;
+  }
+
+  .license-table-inner {
+    overflow: auto;
+    max-height: 80vh;
+  }
+
+  .mat-cell {
+    cursor: pointer;
+  }
+

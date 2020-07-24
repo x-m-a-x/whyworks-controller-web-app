@@ -1,1 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+@import './scss/_variables.scss';
+
+@font-face {
+    font-family: whyworks;
+    src: url(assets/font/whyworks.otf) format("opentype");
+  }
+  
+@font-face {
+    font-family: whyworks_heavy;
+    src: url(assets/font/whyworks_heavy.otf) format("opentype");
+  }
+  
+  * {
+    font-family: 'whyworks', 'arial', sans-serif;
+  }
+  
+  h1, h2, h3, .whyworks-title {
+    font-family: 'whyworks_heavy', 'arial', sans-serif;
+  }
+  
+  .center {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      left: 50%;
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
+    }
+  
+  .center-vertical {
+      margin: 0;
+      position: absolute;
+      left: 50%;
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
+  }
+
+  .mat-cell {
+    font-size: 12px !important;
+  }
+
+  tr.mat-row {
+    height: 34px !important;
+  }

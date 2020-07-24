@@ -1,0 +1,33 @@
+<mat-toolbar color="primary" class="main-toolbar">
+    <mat-toolbar-row>
+        <img *ngIf="!isMobile" class="logo" src="assets/images/whyworks logo neg.png">
+        <img *ngIf="isMobile" class="logo-mobile" src="assets/images/whyworks w neg.png">
+        <span class="master-spacer"></span>
+        <button *ngIf="!isMobile" mat-flat-button color="primary" class="whyworks-title"
+            [ngClass]="{'nav-bar-selected': subMenuSelected === 'Licenses'}"
+            (click)="navigate('Licenses')">Lizenzen</button>
+        <button *ngIf="!isMobile" mat-flat-button color="primary" class="whyworks-title"
+            [ngClass]="{'nav-bar-selected': subMenuSelected === 'eBooks'}" (click)="navigate('eBooks')">eBooks</button>
+        <!-- <mat-icon class="master-icon" aria-hidden="false" aria-label="Example user verified icon" (click)="accountInfo()">person</mat-icon>
+        <mat-icon class="master-icon" aria-hidden="false" aria-label="Example user verified icon" (click)="updateData()">autorenew</mat-icon>     
+        <mat-icon class="master-icon" aria-hidden="false" aria-label="Example user verified icon" (click)="home()">home</mat-icon>  -->
+        <button *ngIf="isMobile" mat-icon-button [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu">
+            <mat-icon>explore</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="navigate('Licenses')">
+                <mat-icon>star</mat-icon>
+                <span>Lizenzen</span>
+            </button>
+            <button mat-menu-item (click)="navigate('eBooks')">
+                <mat-icon>book</mat-icon>
+                <span>eBooks</span>
+            </button>
+        </mat-menu>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div id="routeroutlet" style="height: 100%;">
+    <router-outlet></router-outlet>
+</div>
