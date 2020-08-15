@@ -1,0 +1,89 @@
+<div class="container_detail_licenses">
+    <div class="license-details mat-elevation-z8" [ngClass]="{'license-details-mobile': isMobile}">
+        <mat-toolbar color="white">
+            <mat-toolbar-row>
+                <span>
+                    <h3>Details</h3>
+                </span>
+                <span style="flex: 1 1 auto;"></span>
+                <mat-icon *ngIf="!edit" style="padding: 0 14px; cursor: pointer;" (click)="editLicense()">
+                    edit</mat-icon>
+                <mat-icon *ngIf="edit" style="padding: 0 14px; cursor: pointer;" (click)="saveLicense()">
+                    save</mat-icon>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <!-- <div [formGroup]="licenseSettings"> -->
+        <div class="license-settings">
+            <table class="license-settings-table" [formGroup]="licenseSettings">
+                <tr>
+                    <td>
+                        <b>Key</b>
+                    </td>
+                    <td>
+                        {{license?.LicenseKey}}
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <b>Typ</b>
+                    </td>
+                    <td *ngIf="!edit">
+                        {{getStringOfTestType(license?.LicenseType)}}
+                    </td>
+                    <td *ngIf="edit">
+                        <mat-form-field>
+                            <mat-label>Typ auswählen</mat-label>
+                            <mat-select [formControl]="licenseTypeControl" required>
+                                <mat-option></mat-option>
+                                <mat-option *ngFor="let type of licenseTypes" [value]="type">
+                                    {{type}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <b>Erstellt am</b>
+                    </td>
+                    <td>
+                        {{license?.CreatedAt | date: 'dd.MM.yyyy hh:mm:ss'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Aktiviert</b>
+                    </td>
+                    <td>
+                        {{license?.Activated ? 'ja' : 'nein'}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Info</b>
+                    </td>
+                    <td *ngIf="!edit">
+                        {{license?.Info}}
+                    </td>
+                    <td *ngIf="edit">
+                        <mat-form-field>
+                            <mat-label>Info</mat-label>
+                            <input type="text" matInput [formControl]="licenseInfoControl">
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="details-footer">
+            <mat-toolbar color="transparent">
+                <mat-toolbar-row>
+                    <span></span>
+                    <span style="flex: 1 1 auto;"></span>
+                    <button mat-flat-button color="primary" (click)="backClicked()">Zurück</button>
+                </mat-toolbar-row>
+            </mat-toolbar>
+        </div>
+    </div>
+</div>

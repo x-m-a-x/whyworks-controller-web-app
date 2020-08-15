@@ -66,7 +66,7 @@ export class ServiceBase<T extends CoreEntity> {
         }
     }
 
-    private async getSingleFromWebApi(id: number): Promise<T> {
+    public async getSingleFromWebApi(id: number): Promise<T> {
         try {
             let response = await this.http.get(this.config.apiEndpoint + this.serviceConfig.entityName + "/" + id).toPromise() as unknown as T;
             return this.serviceConfig.map(response);

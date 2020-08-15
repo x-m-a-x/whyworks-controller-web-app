@@ -1,10 +1,14 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from "@angular/core";
 import { LicenseService } from '../../services';
 import { License, TestType } from '../../entities';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { DatePipe } from '@angular/common'
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { Router } from '@angular/router';
+import { LicenseAddDialogComponent } from './license-add-dialog.component';
+import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface iLicense {
     Id: number;
@@ -23,13 +27,14 @@ export interface iLicense {
 })
 
 
-export class LicenseOverviewComponent implements OnInit {
+export class LicenseOverviewComponent implements OnInit, OnDestroy, AfterViewInit {
     public licenses: License[];
     public displayedColumns: string[] = ['LicenseKey', 'Activated', 'LicenseType', 'CreatedAt', 'Info'];
     public isLoadingLicenses = true;
     public dataSource: MatTableDataSource<any>;
     public isDesktopDevice: boolean = true;
     public isMobile: boolean = false;
+    private licensesSubscription: Subscription;
 
     @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -38,6 +43,8 @@ export class LicenseOverviewComponent implements OnInit {
         private licenseService: LicenseService,
         private datePipe: DatePipe,
         private deviceDetectorService: DeviceDetectorService,
+        private router: Router,
+        public dialog: MatDialog,
     ) { }
 
     public async ngOnInit(): Promise<void> {
@@ -48,17 +55,29 @@ export class LicenseOverviewComponent implements OnInit {
             this.displayedColumns = ['LicenseKey', 'Activated', 'LicenseType', 'CreatedAt'];
         }
 
+        // Subscription of Licenses
+        this.licensesSubscription = this.licenseService.licenses.subscribe(async (licenses) => {
+            let iLicenses = [];
+            for (let i = 0; i < licenses?.length; i++) {
+                iLicenses.push(await this.mapToiLicense(licenses[i]));
+            }
+            this.dataSource = new MatTableDataSource(iLicenses);
+            this.dataSource.sort = this.sort;
+            this.isLoadingLicenses = false;
+        })
+
+    }
+
+    public async ngAfterViewInit(): Promise<void> {
+        // if licenses are null or empty -> reload
         if (!this.licenseService.licenses.getValue() || this.licenseService.licenses.getValue().length == 0) {
             this.licenseService.licenses.next(await this.licenseService.getLicensesSortedByDate());
         }
-        this.licenses = this.licenseService.licenses.getValue();
-        let iLicenses = [];
-        for (let i = 0; i < this.licenses?.length; i++) {
-            iLicenses.push(await this.mapToiLicense(this.licenses[i]));
-        }
-        this.dataSource = new MatTableDataSource(iLicenses);
-        this.dataSource.sort = this.sort;
-        this.isLoadingLicenses = false;
+    }
+
+
+    public async ngOnDestroy(): Promise<void> {
+        this.licensesSubscription.unsubscribe();
     }
 
     public stringOfTestType(enumIndex: any): string {
@@ -76,7 +95,7 @@ export class LicenseOverviewComponent implements OnInit {
             Activated: license.Activated ? "ja" : "nein",
             LicenseKey: license.LicenseKey,
             LicenseType: TestType[license.LicenseType],
-            CreatedAt: this.isMobile ? this.datePipe.transform(license.CreatedAt, 'dd.MM.yyyy') : this.datePipe.transform(license.CreatedAt, 'dd.MM.yyyy hh:mm:ss'),
+            CreatedAt: this.isMobile ? this.datePipe.transform(license.CreatedAt, 'dd.MM.yyyy') : this.datePipe.transform(license.CreatedAt, 'dd.MM.yyyy HH:mm:ss'),
             TestId: license.TestId,
             Info: license.Info
         }
@@ -85,7 +104,18 @@ export class LicenseOverviewComponent implements OnInit {
     }
 
     public async editLicense(iLicense: any) {
-        console.log(iLicense);
+        this.router.navigateByUrl("LicenseDetails/" + iLicense.Id);
+    }
+
+    public async addLicense(): Promise<void> {
+        const dialogRef = this.dialog.open(LicenseAddDialogComponent, {
+            width: '80%'
+        });
+
+        dialogRef.afterClosed().subscribe(async result => {
+            this.isLoadingLicenses = true;
+            this.licenseService.licenses.next(await this.licenseService.getLicensesSortedByDate());
+        });
     }
 
 }

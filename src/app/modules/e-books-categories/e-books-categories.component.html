@@ -1,0 +1,88 @@
+<div class="main_container" [ngClass]="{'container-mobile': !isDesktopDevice}">
+    <mat-grid-list class="grid_list" cols="{{isMobile ? 1 : 2}}" rowHeight="{{!isMobile ? '50%' : '50%'}}"
+        [ngClass]="{'grid_list_mobile': !isDesktopDevice}">
+        <mat-grid-tile class="grid_tile">
+            <mat-card class="ebook_category_card" matRipple (click)="onEBookCategoryClicked('Student')">
+                <mat-card-header>
+                    <mat-card-title>
+                        <b>Studenten</b>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content >
+                    <p class="category_desc_mobile">
+                        Text-Bereiche: {{getContentAreasPerType('Student')}}
+                    </p>
+                    <p class="category_desc_mobile">
+                        Text-Bausteine: 0
+                    </p>
+                  </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+        <!-- <mat-grid-tile *ngIf="!isMobile">
+            <p class="category_desc">
+                Dieser Test ist speziell für Studenten ..
+                das liegt daran ...
+                sdascsa ascsa
+            </p>
+        </mat-grid-tile> -->
+        <mat-grid-tile class="grid_tile">
+            <mat-card class="ebook_category_card" matRipple (click)="onEBookCategoryClicked('Manager')">
+                <mat-card-header>
+                    <mat-card-title>
+                        <b>Führungskräfte</b>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content >
+                    <p class="category_desc_mobile">
+                        Text-Bereiche: {{getContentAreasPerType('Manager')}}
+                    </p>
+                  </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+        <!-- <mat-grid-tile *ngIf="!isMobile">
+            <p class="category_desc">
+                Das ist ein besonderer Test für Chefs
+            </p>           
+        </mat-grid-tile> -->
+        <mat-grid-tile class="grid_tile">
+            <mat-card class="ebook_category_card" matRipple (click)="onEBookCategoryClicked('Athlete')">
+                <mat-card-header>
+                    <mat-card-title>
+                        <b>Sportler</b>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content >
+                    <p class="category_desc_mobile">
+                        Text-Bereiche: {{getContentAreasPerType('Athlete')}}
+                    </p>
+                  </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+        <!-- <mat-grid-tile *ngIf="!isMobile">
+            <p class="category_desc">
+                Das ist ein besonderer Test für Athleten
+            </p> 
+            
+        </mat-grid-tile> -->
+        <mat-grid-tile class="grid_tile">
+            <mat-card class="ebook_category_card" matRipple (click)="onEBookCategoryClicked('Other')">
+                <mat-card-header>
+                    <mat-card-title>
+                        <b>Andere</b>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content >
+                    <p class="category_desc_mobile">
+                        Text-Bereiche: {{getContentAreasPerType('Other')}}
+                    </p>
+                  </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+        <!-- <mat-grid-tile *ngIf="!isMobile">
+            <p class="category_desc">
+                Das ist der Test für den Rest
+            </p> 
+            
+        </mat-grid-tile> -->
+    </mat-grid-list>
+</div>

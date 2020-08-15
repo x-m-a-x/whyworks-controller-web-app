@@ -7,7 +7,7 @@
             [ngClass]="{'nav-bar-selected': subMenuSelected === 'Licenses'}"
             (click)="navigate('Licenses')">Lizenzen</button>
         <button *ngIf="!isMobile" mat-flat-button color="primary" class="whyworks-title"
-            [ngClass]="{'nav-bar-selected': subMenuSelected === 'eBooks'}" (click)="navigate('eBooks')">eBooks</button>
+            [ngClass]="{'nav-bar-selected': subMenuSelected === 'eBooksCategories'}" (click)="navigate('eBooksCategories')">eBooks</button>
         <!-- <mat-icon class="master-icon" aria-hidden="false" aria-label="Example user verified icon" (click)="accountInfo()">person</mat-icon>
         <mat-icon class="master-icon" aria-hidden="false" aria-label="Example user verified icon" (click)="updateData()">autorenew</mat-icon>     
         <mat-icon class="master-icon" aria-hidden="false" aria-label="Example user verified icon" (click)="home()">home</mat-icon>  -->
@@ -20,7 +20,7 @@
                 <mat-icon>star</mat-icon>
                 <span>Lizenzen</span>
             </button>
-            <button mat-menu-item (click)="navigate('eBooks')">
+            <button mat-menu-item (click)="navigate('eBooksCategories')">
                 <mat-icon>book</mat-icon>
                 <span>eBooks</span>
             </button>

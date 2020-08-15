@@ -31,9 +31,10 @@ export class License extends CoreEntity {
             Activated: this.Activated,
             LicenseKey: this.LicenseKey,
             LicenseType: this.LicenseType,
-            CreatedAt: new Date(Date.UTC(this.CreatedAt.getFullYear(), this.CreatedAt.getMonth()
-                , this.CreatedAt.getDate(), this.CreatedAt.getHours()
-                , this.CreatedAt.getMinutes(), this.CreatedAt.getSeconds())),
+            CreatedAt: new Date(Date.UTC(new Date(this.CreatedAt).getFullYear(), new Date(this.CreatedAt).getMonth()
+                , new Date(this.CreatedAt).getDate(), new Date(this.CreatedAt).getHours()
+                , new Date(this.CreatedAt).getMinutes(), new Date(this.CreatedAt).getSeconds())),
+            // CreatedAt: new Date(this.CreatedAt),
             TestId: this.TestId,
             Info: this.Info
         }

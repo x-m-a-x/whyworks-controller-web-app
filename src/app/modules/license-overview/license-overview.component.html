@@ -3,6 +3,14 @@
         <mat-spinner *ngIf="isLoadingLicenses"></mat-spinner>
     </div>
     <div class="license-table mat-elevation-z8" [ngClass]="{'license-table-mobile': isMobile}">
+        <mat-toolbar color="white">
+            <mat-toolbar-row>
+                <span><h3>Übersicht</h3></span>
+                <span style="flex: 1 1 auto;"></span>
+                <mat-icon style="padding: 0 14px; cursor: pointer;" (click)="addLicense()">
+                    add</mat-icon>     
+            </mat-toolbar-row>
+        </mat-toolbar>
         <div class="filter-licenses">
             <mat-form-field>
                 <mat-label>Filter</mat-label>

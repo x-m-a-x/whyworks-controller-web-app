@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 export interface IAppConfig {
     version: string;
     apiEndpoint: string;
+    lengthLicenseKey: number;
 }
 
 @Injectable()

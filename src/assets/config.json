@@ -1,4 +1,5 @@
 {
     "version": "1.0.0.0",
-    "apiEndpoint": "https://localhost:44346/api/"
+    "apiEndpoint": "https://localhost:44346/api/",
+    "lengthLicenseKey": 6
 }
