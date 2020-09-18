@@ -5,7 +5,7 @@
             <mat-card class="ebook_category_card" matRipple (click)="onEBookCategoryClicked('Student')">
                 <mat-card-header>
                     <mat-card-title>
-                        <b>Studenten</b>
+                        <b class="card-title">Studenten</b>
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-content >
@@ -13,7 +13,7 @@
                         Text-Bereiche: {{getContentAreasPerType('Student')}}
                     </p>
                     <p class="category_desc_mobile">
-                        Text-Bausteine: 0
+                        Text-Bausteine: {{getTextElementsPerType('Student')}}
                     </p>
                   </mat-card-content>
             </mat-card>
@@ -36,6 +36,9 @@
                     <p class="category_desc_mobile">
                         Text-Bereiche: {{getContentAreasPerType('Manager')}}
                     </p>
+                    <p class="category_desc_mobile">
+                        Text-Bausteine: {{getTextElementsPerType('Manager')}}
+                    </p>
                   </mat-card-content>
             </mat-card>
         </mat-grid-tile>
@@ -54,6 +57,9 @@
                 <mat-card-content >
                     <p class="category_desc_mobile">
                         Text-Bereiche: {{getContentAreasPerType('Athlete')}}
+                    </p>
+                    <p class="category_desc_mobile">
+                        Text-Bausteine: {{getTextElementsPerType('Athlete')}}
                     </p>
                   </mat-card-content>
             </mat-card>
@@ -74,6 +80,9 @@
                 <mat-card-content >
                     <p class="category_desc_mobile">
                         Text-Bereiche: {{getContentAreasPerType('Other')}}
+                    </p>
+                    <p class="category_desc_mobile">
+                        Text-Bausteine: {{getTextElementsPerType('Other')}}
                     </p>
                   </mat-card-content>
             </mat-card>

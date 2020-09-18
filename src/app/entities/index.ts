@@ -5,6 +5,4 @@ export * from './personality-test';
 export * from './omt-dimensions';
 export * from './ebook-text-element';
 export * from './ebook-content-area';
-export * from './ebook-definition';
-export * from './test-result-measure-definition';
-export * from './test-result-measure';
+export * from './ebook';

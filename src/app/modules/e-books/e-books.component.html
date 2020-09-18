@@ -1,5 +1,85 @@
 <div class="container-ebooks">
-    EBooks
+    <mat-toolbar color="white">
+        <mat-toolbar-row>
+            <span>
+                <h3>{{ebookType}}</h3>
+            </span>
+            <span style="flex: 1 1 auto;"></span>
+            <mat-icon style="padding: 0 14px; cursor: pointer;" (click)="reorderContentAreas()"
+                matTooltip="Reihenfolge bearbeiten">
+                swap_vert</mat-icon>
+            <mat-icon style="padding: 0 14px; cursor: pointer;" (click)="addContentArea()"
+                matTooltip="Neuer Textbereich">
+                add</mat-icon>
 
 
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="content-container">
+        <mat-accordion multi>
+            <mat-expansion-panel *ngFor="let area of contentAreas">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>{{area.Name}}</mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-panel-description>
+                    <table style="width: 100%;">
+                        <tr>
+                            <mat-toolbar class="sub-toolbar-content-area" color="white">
+                                <span style="flex: 1 1 auto;"></span>
+                                <mat-icon *ngIf="editContentAreaId == area.Id" style="padding: 0 14px; cursor: pointer;"
+                                    (click)="addTextElement(area)" matTooltip="Neuer Text">
+                                    add</mat-icon>
+                                <mat-icon *ngIf="editContentAreaId != area.Id" style="padding: 0 14px; cursor: pointer;"
+                                    (click)="deleteContentArea(area)" matTooltip="Textbereich löschen">
+                                    delete</mat-icon>
+                                <mat-icon *ngIf="editContentAreaId != area.Id" style="padding: 0 14px; cursor: pointer;"
+                                    (click)="editContentArea(area)" matTooltip="Text bearbeiten">
+                                    edit</mat-icon>
+                                <mat-icon *ngIf="editContentAreaId == area.Id" style="padding: 0 14px; cursor: pointer;"
+                                    (click)="saveChanges()" matTooltip="Speichern">
+                                    save</mat-icon>
+                                <mat-icon *ngIf="editContentAreaId == area.Id" style="padding: 0 14px; cursor: pointer;"
+                                    (click)="cancelChanges()" matTooltip="Abbrechen">
+                                    undo</mat-icon>
+
+                            </mat-toolbar>
+                        </tr>
+                        <tr>
+                            <mat-sidenav-container class="content-area-container"
+                                *ngFor="let text of area.TextElements">
+                                <mat-sidenav #sidenav mode="side" opened class="sidenav">
+                                    <table>
+                                        <tr *ngIf="text.Unconscious">
+                                            {{translateUnconscious(text.Unconscious)}}
+                                        </tr>
+                                        <tr *ngIf="text.Congruence">
+                                            {{translateCongruence(text.Congruence)}}
+                                        </tr>
+                                        <tr *ngIf="text.SelfAssessment">
+                                            {{translateSelfAssessment(text.SelfAssessment)}}
+                                        </tr>
+                                    </table>
+                                    
+                                </mat-sidenav>
+                                <mat-sidenav-content>
+                                    <div class="content-area">
+                                        <div *ngIf="editContentAreaId != area.Id">
+                                            {{text.Text}}
+
+                                        </div>
+                                        <mat-form-field *ngIf="editContentAreaId == area.Id" class="text-input-field">
+                                            <!-- <mat-label>Name</mat-label> -->
+                                            <textarea class="textarea-input" type="text" matInput (input)="onTextChange($event.target.value, text.Id)"
+                                                required value="{{text.Text}}"></textarea>
+                                        </mat-form-field>
+                                    </div>
+                                    <mat-divider *ngIf="area.TextElements.length > 1"></mat-divider>
+                                </mat-sidenav-content>
+                            </mat-sidenav-container>
+                        </tr>
+                    </table>
+                </mat-panel-description>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
 </div>

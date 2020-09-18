@@ -80,7 +80,7 @@ export class ServiceBase<T extends CoreEntity> {
     public async setSingleToWebApi(item: T): Promise<T> {
         let existingItem: T = null;
         const apiItem: T = await this.serviceConfig.map(item).toApiItem() as T;
-
+        
         if (item.Id != 0) { existingItem = await this.getSingleFromWebApi(item.Id); }
 
         try {

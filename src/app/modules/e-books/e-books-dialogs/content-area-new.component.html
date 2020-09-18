@@ -1,0 +1,36 @@
+<h1>Neuer Textbereich</h1>
+<div class="input-area">
+    <form [formGroup]="options">
+        <table>
+            <tr>
+                <mat-form-field class="new-text-input-field">
+                    <mat-label>Name</mat-label>
+                    <input [formControl]="nameControl" type="text" matInput (input)="onNameChange($event.target.value)"
+                        required value="{{name}}">
+                </mat-form-field>
+            </tr>
+            <tr>
+
+                <mat-form-field appearance="fill" class="new-text-input-field">
+                    <mat-label>Dimension</mat-label>
+                    <mat-select [formControl]="dimension1Control" required>
+                        <mat-option value="A">Beziehung</mat-option>
+                        <mat-option value="L">Leistung</mat-option>
+                        <mat-option value="M">Macht</mat-option>
+                        <mat-option value="F">Freiheit</mat-option>
+                        <mat-option value="General">Generell</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div mat-dialog-actions style="width: 100%; float: right;">
+    <button mat-button (click)="onCancelClick()">
+        <mat-icon>undo</mat-icon>
+    </button>
+    <button mat-button (click)="onOkClick()" disabled="{{!name}}">
+        <mat-icon>done</mat-icon>
+    </button>
+</div>

@@ -2,7 +2,8 @@ export enum Dimension1 {
     A = 1,
     L,
     M,
-    F
+    F,
+    General
 }
 
 export enum Dimension2 {
