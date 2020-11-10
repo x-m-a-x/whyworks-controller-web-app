@@ -1,0 +1,32 @@
+<div class="container_account">
+    <div class="account-infos mat-elevation-z8" [ngClass]="{'account-infos-mobile': isMobile}">
+        <mat-toolbar color="white">
+            <mat-toolbar-row>
+                <span><h3>Benutzer</h3></span>
+   
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <div class="account-details">
+            <table style="width: 100%;">
+                <tr>
+                    <td>Name</td>
+                    <td>{{user.Name}}</td>
+                </tr>
+                <tr>
+                    <td>Mail</td>
+                    <td>{{user.EMail}}</td>
+                </tr>
+            </table>            
+        </div>
+        <div class="details-footer">
+            <mat-toolbar color="white">
+                <mat-toolbar-row>
+                    <span></span>
+                    <span style="flex: 1 1 auto;"></span>
+                    <button mat-flat-button color="primary" (click)="signOut()">Abmelden</button>
+                </mat-toolbar-row>
+            </mat-toolbar>
+        </div>
+
+    </div>
+</div>

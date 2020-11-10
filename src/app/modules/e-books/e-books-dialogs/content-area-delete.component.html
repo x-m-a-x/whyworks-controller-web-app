@@ -1,0 +1,12 @@
+<h1>Textbereich löschen</h1>
+<div class="delete-question-area">
+    <p>Soll der Textbereich '{{eBookContentArea.Name}}' wirklich gelöscht werden?</p>
+</div>
+<div mat-dialog-actions style="width: 100%; float: right;">
+    <button mat-button (click)="onCancelClick()">
+        <mat-icon matTooltip="Abbrechen">undo</mat-icon>
+    </button>
+    <button mat-button (click)="onOkClick()">
+        <mat-icon matTooltip="Löschen">done</mat-icon>
+    </button>
+</div>

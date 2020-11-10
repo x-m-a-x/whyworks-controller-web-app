@@ -4,6 +4,9 @@ import { AppConfigService } from './app-config.service';
 import { LicenseService } from './license.service';
 import { EBookTextElementService } from './ebook-text-element.service'
 import { EBookContentAreaService } from './ebook-content-area.service';
+import { AuthenticationService } from './authentication.service';
+import { UserService } from './user.service';
+import { ClassificationService } from './classification.service';
 
 @NgModule({
     declarations: [],
@@ -13,6 +16,9 @@ import { EBookContentAreaService } from './ebook-content-area.service';
         LicenseService,
         EBookTextElementService,
         EBookContentAreaService,
+        AuthenticationService,
+        UserService,
+        ClassificationService
     ]
 })
 export class ServiceModule { }

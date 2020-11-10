@@ -4,18 +4,33 @@
         <img *ngIf="isMobile" class="logo-mobile" src="assets/images/whyworks w neg.png">
         <span class="master-spacer"></span>
         <button *ngIf="!isMobile" mat-flat-button color="primary" class="whyworks-title"
+            [ngClass]="{'nav-bar-selected': subMenuSelected === 'Classifier'}"
+            (click)="navigate('Classifier')">Classifier</button>
+        <button *ngIf="!isMobile" mat-flat-button color="primary" class="whyworks-title"
             [ngClass]="{'nav-bar-selected': subMenuSelected === 'Licenses'}"
             (click)="navigate('Licenses')">Lizenzen</button>
         <button *ngIf="!isMobile" mat-flat-button color="primary" class="whyworks-title"
-            [ngClass]="{'nav-bar-selected': subMenuSelected === 'eBooksCategories'}" (click)="navigate('eBooksCategories')">eBooks</button>
+            [ngClass]="{'nav-bar-selected': subMenuSelected === 'eBooksCategories'}"
+            (click)="navigate('eBooksCategories')">eBooks</button>
+        <button *ngIf="!isMobile" mat-icon-button (click)="navigate('Account')" style="margin-left: 5px;"
+            [ngClass]="{'nav-bar-selected': subMenuSelected === 'Account'}">
+            <mat-icon matTooltip="Benutzer">person</mat-icon>
+        </button>
+        <button *ngIf="!isMobile" mat-icon-button (click)="update()" style="margin-left: 5px;">
+            <mat-icon matTooltip="Aktualisieren">autorenew</mat-icon>
+        </button>
         <!-- <mat-icon class="master-icon" aria-hidden="false" aria-label="Example user verified icon" (click)="accountInfo()">person</mat-icon>
         <mat-icon class="master-icon" aria-hidden="false" aria-label="Example user verified icon" (click)="updateData()">autorenew</mat-icon>     
         <mat-icon class="master-icon" aria-hidden="false" aria-label="Example user verified icon" (click)="home()">home</mat-icon>  -->
         <button *ngIf="isMobile" mat-icon-button [matMenuTriggerFor]="menu"
             aria-label="Example icon-button with a menu">
-            <mat-icon>explore</mat-icon>
+            <mat-icon>menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="navigate('Classifier')">
+                <mat-icon>equalizer</mat-icon>
+                <span>Classifier</span>
+            </button>
             <button mat-menu-item (click)="navigate('Licenses')">
                 <mat-icon>star</mat-icon>
                 <span>Lizenzen</span>
@@ -23,6 +38,14 @@
             <button mat-menu-item (click)="navigate('eBooksCategories')">
                 <mat-icon>book</mat-icon>
                 <span>eBooks</span>
+            </button>
+            <button mat-menu-item (click)="navigate('Account')">
+                <mat-icon>person</mat-icon>
+                <span>Benutzer</span>
+            </button>
+            <button mat-menu-item (click)="update()">
+                <mat-icon>autorenew</mat-icon>
+                <span>Aktualisieren</span>
             </button>
         </mat-menu>
     </mat-toolbar-row>

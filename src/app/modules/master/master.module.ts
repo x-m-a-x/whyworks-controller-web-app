@@ -7,6 +7,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { MatMenuModule } from '@angular/material/menu';
         MatIconModule,
         MatButtonModule,
         MatButtonToggleModule,
-        MatMenuModule
+        MatMenuModule,
+        MatTooltipModule,
     ],
     providers: [
 

@@ -2,11 +2,13 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
 import { TestType, EBookContentArea, EBookTextElement, Unconscious, Congruence, SelfAssessment } from '../../entities';
 import { EBookContentAreaService, EBookTextElementService } from '../../services';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEventPattern } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ContentAreaNewComponent } from './e-books-dialogs/content-area-new.component'
 import { TextElementNewComponent } from './e-books-dialogs/text-element-new.component';
 import { ReorderAreasComponent } from './e-books-dialogs/reorder-areas.component';
+import { ContentAreaDeleteComponent } from './e-books-dialogs/content-area-delete.component';
+import { TextDeleteComponent } from './e-books-dialogs/text-delete.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
@@ -41,7 +43,7 @@ export class EBooksComponent implements OnInit, OnDestroy {
         });
 
         this.eBookContentAreasSubscription = this.eBookContentAreaService.eBookContentAreas.subscribe((contentAreas) => {
-            this.contentAreas = contentAreas?.filter(ca => TestType[ca.TestType] == this.ebookType.toString());
+            this.contentAreas = contentAreas ? contentAreas.filter(ca => TestType[ca.TestType] == this.ebookType.toString()) : [];
             for (let i = 0; i < this.contentAreas?.length; i++) {
                 this.contentAreas[i].TextElements = this.eBookTextElementService.eBookTextElements.getValue()?.filter(te => te.EBookContentAreaId == this.contentAreas[i].Id);
             }
@@ -95,7 +97,7 @@ export class EBooksComponent implements OnInit, OnDestroy {
 
         dialogRef.afterClosed().subscribe(result => { });
 
-        
+
     }
 
     public async saveChanges(): Promise<void> {
@@ -121,6 +123,27 @@ export class EBooksComponent implements OnInit, OnDestroy {
 
     public async deleteContentArea(contentArea: any): Promise<void> {
 
+        const dialogRef = this.dialog.open(ContentAreaDeleteComponent, {
+            width: '80%',
+            data: { contentArea }
+        });
+
+        dialogRef.afterClosed().subscribe(async result => {
+            this.eBookContentAreaService.eBookContentAreas.next(await this.eBookContentAreaService.getFromWebApi());
+            this.eBookTextElementService.eBookTextElements.next(await this.eBookTextElementService.getFromWebApi());
+        });
+
+    }
+
+    public async deleteTextElement(textElement: any): Promise<void> {
+        const dialogRef = this.dialog.open(TextDeleteComponent, {
+            width: '80%',
+            data: { textElement }
+        });
+
+        dialogRef.afterClosed().subscribe(async result => {
+            this.eBookTextElementService.eBookTextElements.next(await this.eBookTextElementService.getFromWebApi());
+        });
     }
 
     public async editContentArea(contentArea: any): Promise<void> {

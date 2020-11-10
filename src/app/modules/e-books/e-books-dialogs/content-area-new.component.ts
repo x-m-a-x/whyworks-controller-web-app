@@ -50,6 +50,7 @@ export class ContentAreaNewComponent {
         let contentArea = new EBookContentArea();
         contentArea.Name = this.name;
         contentArea.TestType = this.testType;
+        contentArea.Dimension1 = this.dimension1Control.value;
 
         await this.eBookContentAreaService.setSingleToWebApi(contentArea);
         this.eBookContentAreaService.eBookContentAreas.next(await this.eBookContentAreaService.getFromWebApi());

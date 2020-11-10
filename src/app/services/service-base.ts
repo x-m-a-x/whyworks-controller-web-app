@@ -52,7 +52,9 @@ export class ServiceBase<T extends CoreEntity> {
             return null;
         }
         try {
-            let response = await this.http.get(this.config.apiEndpoint + this.serviceConfig.entityName).toPromise() as unknown as T[];
+            // let response = await this.http.get(this.config.apiEndpoint + this.serviceConfig.entityName).toPromise() as unknown as T[];
+            let response = await this.http.get(this.config.apiEndpoint + this.serviceConfig.entityName,
+                (await this.getRequestCredentials())).toPromise() as unknown as T[];
             const mappedItems: T[] = [];
             for (let i = 0; i < response.length; i++) {
                 mappedItems.push(this.serviceConfig.map(response[i]));
@@ -68,7 +70,10 @@ export class ServiceBase<T extends CoreEntity> {
 
     public async getSingleFromWebApi(id: number): Promise<T> {
         try {
-            let response = await this.http.get(this.config.apiEndpoint + this.serviceConfig.entityName + "/" + id).toPromise() as unknown as T;
+            // let response = await this.http.get(this.config.apiEndpoint + this.serviceConfig.entityName + "/" + id).toPromise() as unknown as T;
+
+            let response = await this.http.get(this.config.apiEndpoint + this.serviceConfig.entityName + "/" + id,
+                (await this.getRequestCredentials())).toPromise() as unknown as T;
             return this.serviceConfig.map(response);
         }
         catch (error) {
@@ -83,16 +88,17 @@ export class ServiceBase<T extends CoreEntity> {
         
         if (item.Id != 0) { existingItem = await this.getSingleFromWebApi(item.Id); }
 
+        let options = await this.getRequestCredentials();
         try {
             if (existingItem) {
                 // update
-                await this.http.put(this.config.apiEndpoint + this.serviceConfig.entityName + "/" + item.Id, apiItem).toPromise();
+                await this.http.put(this.config.apiEndpoint + this.serviceConfig.entityName + "/" + item.Id, apiItem, options).toPromise();
                 item = this.serviceConfig.map(item);
             }
             else {
                 // insert             
                 apiItem.Id = 0;
-                let response = await this.http.post(this.config.apiEndpoint + this.serviceConfig.entityName, apiItem).toPromise() as unknown as T;
+                let response = await this.http.post(this.config.apiEndpoint + this.serviceConfig.entityName, apiItem, options).toPromise() as unknown as T;
                 item = this.serviceConfig.map(response);
             }
 
@@ -114,22 +120,22 @@ export class ServiceBase<T extends CoreEntity> {
     }
 
 
-    private async deleteFromWebApi(id: number): Promise<void> {
-        await this.http.delete(this.config.apiEndpoint + this.serviceConfig.entityName + "/" + id).toPromise();
+    public async deleteFromWebApi(id: number): Promise<void> {
+        await this.http.delete(this.config.apiEndpoint + this.serviceConfig.entityName + "/" + id, await this.getRequestCredentials()).toPromise();
     }
 
-    // private async getRequestCredentials(): Promise<any> {
-    //     let sCurrentUser = localStorage.getItem("currentUser");
-    //     let jCurrentUser = await JSON.parse(sCurrentUser);
+    private async getRequestCredentials(): Promise<any> {
+        let sCurrentUser = localStorage.getItem("currentUser");
+        let jCurrentUser = await JSON.parse(sCurrentUser);
 
-    //     const httpOptions = {
-    //         headers: new HttpHeaders({
-    //             'Content-Type': 'application/json',
-    //             'Authorization': 'Basic ' + jCurrentUser?.Authdata
-    //         })
-    //     };
-    //     return Promise.resolve(httpOptions);
-    // }
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + jCurrentUser?.Authdata
+            })
+        };
+        return Promise.resolve(httpOptions);
+    }
 
 
 

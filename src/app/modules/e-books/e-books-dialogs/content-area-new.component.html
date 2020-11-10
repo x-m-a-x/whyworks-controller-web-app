@@ -28,9 +28,9 @@
 
 <div mat-dialog-actions style="width: 100%; float: right;">
     <button mat-button (click)="onCancelClick()">
-        <mat-icon>undo</mat-icon>
+        <mat-icon matTooltip="Abbrechen">undo</mat-icon>
     </button>
-    <button mat-button (click)="onOkClick()" disabled="{{!name}}">
-        <mat-icon>done</mat-icon>
+    <button mat-button (click)="onOkClick()" disabled="{{!name || !dimension1Control.value}}">
+        <mat-icon matTooltip="Erstellen">done</mat-icon>
     </button>
 </div>

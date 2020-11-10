@@ -16,17 +16,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
 
 import { ContentAreaNewComponent } from './e-books-dialogs/content-area-new.component';
 import { TextElementNewComponent } from './e-books-dialogs/text-element-new.component';
 import { ReorderAreasComponent } from './e-books-dialogs/reorder-areas.component';
+import { ContentAreaDeleteComponent } from './e-books-dialogs/content-area-delete.component';
+import { TextDeleteComponent } from './e-books-dialogs/text-delete.component';
 
 @NgModule({
     declarations: [
         EBooksComponent,
         ContentAreaNewComponent,
         TextElementNewComponent,
-        ReorderAreasComponent
+        ReorderAreasComponent,
+        ContentAreaDeleteComponent,
+        TextDeleteComponent
     ],
     imports: [
         CommonModule,
@@ -45,7 +50,8 @@ import { ReorderAreasComponent } from './e-books-dialogs/reorder-areas.component
         ReactiveFormsModule,
         MatDividerModule,
         MatSelectModule,
-        MatListModule
+        MatListModule,
+        MatTableModule
     ],
     providers: [
 

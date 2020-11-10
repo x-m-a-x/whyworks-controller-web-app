@@ -1,0 +1,44 @@
+<mat-toolbar color="primary" class="main-toolbar">
+    <mat-toolbar-row>
+        <img *ngIf="!isMobile" class="logo" src="assets/images/whyworks logo neg.png">
+        <img *ngIf="isMobile" class="logo-mobile" src="assets/images/whyworks w neg.png">
+    </mat-toolbar-row>
+</mat-toolbar>
+<div class="container_login">
+    <div [formGroup]="loginForm" (ngSubmit)="onSubmit()" style="margin-top: 15%;">
+        <table>
+            <tr>
+                <td>
+                    <mat-form-field>
+                        <mat-label>Benutzer</mat-label>
+                        <input type="text" matInput [formControl]="usernameControl" required ngDefaultControl>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field>
+                        <mat-label>Passwort</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordControl">
+                        <button mat-icon-button matSuffix (click)="hide = !hide"
+                            [attr.aria-label]="'Passwort ausblenden'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right">
+                    <button [disabled]="loading" mat-flat-button color="primary" (click)="onSubmit()">Anmelden</button>
+                </td>
+            </tr>
+            <tr *ngIf="error">
+                <td>
+                    <div style="width: 100%; margin-left: 5%; color: red;">{{error}}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+</div>

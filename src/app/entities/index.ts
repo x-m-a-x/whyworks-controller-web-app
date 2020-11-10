@@ -6,3 +6,5 @@ export * from './omt-dimensions';
 export * from './ebook-text-element';
 export * from './ebook-content-area';
 export * from './ebook';
+export * from './user';
+export * from './classification-result';

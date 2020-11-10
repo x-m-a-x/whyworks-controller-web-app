@@ -73,6 +73,13 @@
                                                 required value="{{text.Text}}"></textarea>
                                         </mat-form-field>
                                     </div>
+                                    <mat-toolbar *ngIf="editContentAreaId == area.Id" class="sub-toolbar-content-area" color="white">
+                                        <span style="flex: 1 1 auto;"></span>
+                                        <mat-icon style="padding: 0 14px; cursor: pointer;"
+                                            (click)="deleteTextElement(text)" matTooltip="Text löschen">
+                                            delete</mat-icon>
+       
+                                    </mat-toolbar>
                                     <mat-divider *ngIf="area.TextElements.length > 1"></mat-divider>
                                 </mat-sidenav-content>
                             </mat-sidenav-container>

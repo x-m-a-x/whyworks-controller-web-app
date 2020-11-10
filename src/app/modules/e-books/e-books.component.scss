@@ -68,3 +68,13 @@
     width: 100%;
     min-height: 200px;
 }
+
+.delete-question-area {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 20px;
+    width: 100%;
+}

@@ -32,7 +32,7 @@ export class EBookContentArea extends CoreEntity {
             Name: this.Name,
             Order: this.Order,
             TestType: TestType[this.TestType],
-            Dimension1: Dimension1[this.Dimension1]
+            Dimension1: this.Dimension1 ? Dimension1[this.Dimension1] : 0
         }
         return item;
     }

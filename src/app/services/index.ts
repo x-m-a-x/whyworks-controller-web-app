@@ -4,3 +4,6 @@ export * from './service-base';
 export * from './license.service';
 export * from './ebook-text-element.service';
 export * from './ebook-content-area.service';
+export * from './authentication.service';
+export * from './user.service';
+export * from './classification.service';

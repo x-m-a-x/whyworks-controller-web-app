@@ -1,0 +1,137 @@
+<div class="container_classifier">
+    <div class="classifier-infos mat-elevation-z8" [ngClass]="{'classifier-infos-mobile': isMobile}">
+        <mat-toolbar color="white">
+            <mat-toolbar-row>
+                <span>
+                    <h3>Classifier</h3>
+                </span>
+
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+
+        <div [formGroup]="classifyForm" (ngSubmit)="classify()" style="margin-top: 1%;">
+            <div class="classifier-details">
+                <table>
+                    <tr>
+                        <td>
+                            <mat-form-field class="classifier-form-field"
+                                [ngClass]="{'classifier-form-field-mobile': isMobile}">
+                                <mat-label>Was ist für die Person wichtig und was tut sie?</mat-label>
+                                <textarea type="text" matInput [formControl]="answer1Control" required
+                                    ngDefaultControl></textarea>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field class="classifier-form-field"
+                                [ngClass]="{'classifier-form-field-mobile': isMobile}">
+                                <mat-label>Wie fühlt sich die Person?</mat-label>
+                                <textarea type="text" matInput [formControl]="answer2Control" required
+                                    ngDefaultControl></textarea>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field class="classifier-form-field"
+                                [ngClass]="{'classifier-form-field-mobile': isMobile}">
+                                <mat-label>Warum fühlt sich die Person so?</mat-label>
+                                <textarea type="text" matInput [formControl]="answer3Control" required
+                                    ngDefaultControl></textarea>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field class="image-form-field" [ngClass]="{'image-form-field-mobile': isMobile}">
+                                <mat-label>Bild</mat-label>
+                                <input type="number" matInput [formControl]="imageControl" required ngDefaultControl>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+
+
+            <div class="details-footer">
+                <mat-toolbar color="white">
+                    <mat-toolbar-row>
+                        <span></span>
+                        <span style="flex: 1 1 auto;"></span>
+                        <button mat-flat-button color="primary" (click)="classify()"
+                            [disabled]="!answer1Control.value || !answer2Control.value || !answer3Control.value || !imageControl.value">Classify</button>
+                    </mat-toolbar-row>
+                </mat-toolbar>
+            </div>
+
+            <div *ngIf="error" class="error">
+                <table>
+                    <tr><td><h2>Fehler bei der Abfrage!</h2></td></tr>
+                    <tr><td>{{error}}</td></tr>
+                </table>             
+                
+            </div>
+
+            <div class="classifier-results" >
+                <div *ngIf="apiRequestProcessing" class="spinner-div">
+                    <mat-spinner></mat-spinner>
+                </div>
+                <table *ngIf="classificationResult" class="classifier-form-field" [ngClass]="{'classifier-form-field-mobile': isMobile}">
+                    <tr>
+                        <td>
+                            Beziehung
+                        </td>
+                        <td>
+                            {{classificationResult?.dim1_A}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Freiheit
+                        </td>
+                        <td>
+                            {{classificationResult?.dim1_F}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Leistung
+                        </td>
+                        <td>
+                            {{classificationResult?.dim1_L}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Macht
+                        </td>
+                        <td>
+                            {{classificationResult?.dim1_M}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Positiv
+                        </td>
+                        <td>
+                            {{classificationResult?.dim2_pos}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Negativ
+                        </td>
+                        <td>
+                            {{classificationResult?.dim2_neg}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

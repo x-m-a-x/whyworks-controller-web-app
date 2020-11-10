@@ -1,0 +1,104 @@
+.container_classifier {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 20px;
+}
+
+.classifier-infos {
+    width: 85%;
+}
+
+.classifier-infos-mobile {
+    width: 95% !important;
+  }
+
+.classifier-details {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.classifier-results {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.error {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    color: red;
+    font-weight: bold;
+}
+
+.spinner-div {
+    width: 40%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    margin-bottom: 30px;
+}
+
+tr>td {
+    padding-bottom: 1em;
+    width: 80%;
+}
+
+.details-footer {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: right;
+    flex-flow: row wrap;
+    margin-top: 10px;
+    width: 100%;
+    height: 64px;
+}
+
+.mat-toolbar {
+    background: transparent !important;
+}
+
+.classifier-form-field {
+    width: 400px;
+}
+
+.classifier-form-field-mobile {
+    width: 200px !important;
+    font-size: smaller !important;
+}
+
+.image-form-field {
+    width: 200px;
+}
+
+.image-form-field-mobile {
+    width: 200px !important;
+    font-size: smaller !important;
+}
+

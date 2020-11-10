@@ -5,6 +5,7 @@ export interface IAppConfig {
     version: string;
     apiEndpoint: string;
     lengthLicenseKey: number;
+    classificationApiEndpoint: string;
 }
 
 @Injectable()

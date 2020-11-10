@@ -22,14 +22,20 @@ export class MasterComponent implements OnInit {
     ) { }
 
     public async ngOnInit(): Promise<void> {
-        this.isMobile = this.deviceDetectorService.isMobile();
-        this.licenseService.licenses.next(await this.licenseService.getFromWebApi());
-        this.eBookContentAreaService.eBookContentAreas.next(await this.eBookContentAreaService.getFromWebApi());
-        this.eBookTextElementService.eBookTextElements.next(await this.eBookTextElementService.getFromWebApi());
+        await this.update();
     }
 
     public async navigate(target: string): Promise<void> {
         this.subMenuSelected = target;
         this.router.navigateByUrl(target);
     }
+
+    public async update(): Promise<void> {
+        this.isMobile = this.deviceDetectorService.isMobile();
+        this.licenseService.licenses.next(await this.licenseService.getFromWebApi());
+        this.eBookContentAreaService.eBookContentAreas.next(await this.eBookContentAreaService.getFromWebApi());
+        this.eBookTextElementService.eBookTextElements.next(await this.eBookTextElementService.getFromWebApi());
+    }
+
+    
 }

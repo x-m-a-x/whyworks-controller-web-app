@@ -5,6 +5,9 @@ import { LicenseOverviewComponent } from '../license-overview';
 import { EBooksComponent } from '../e-books';
 import { LicenseDetailComponent } from '../license-detail';
 import { EBooksCategoriesComponent } from '../e-books-categories';
+import { AccountComponent } from '../account';
+import { ClassifierComponent } from '../classifier';
+
 
 const masterRoutes: Routes = [
     {
@@ -25,6 +28,14 @@ const masterRoutes: Routes = [
                 path: "LicenseDetails/:licenseId",
                 loadChildren: "../license-detail/license-detail.module#LicenseDetailModule"
             },
+            {
+                path: "Account",
+                loadChildren: "../account/account.module#AccountModule"
+            },
+            {
+                path: "Classifier",
+                loadChildren: "../classifier/classifier.module#ClassifierModule"
+            }
         ],
         path: "",
         component: MasterComponent
