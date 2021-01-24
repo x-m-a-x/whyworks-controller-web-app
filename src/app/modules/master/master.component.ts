@@ -1,7 +1,7 @@
 import { Component, OnInit, } from "@angular/core";
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { LicenseService, EBookContentAreaService, EBookTextElementService } from '../../services';
+import { LicenseService, EBookContentAreaService, EBookTextElementService, PersonalityTestService } from '../../services';
 
 @Component({
     selector: "master",
@@ -19,6 +19,7 @@ export class MasterComponent implements OnInit {
         private licenseService: LicenseService,
         private eBookContentAreaService: EBookContentAreaService,
         private eBookTextElementService: EBookTextElementService,
+        private personalityTestService: PersonalityTestService
     ) { }
 
     public async ngOnInit(): Promise<void> {
@@ -35,6 +36,7 @@ export class MasterComponent implements OnInit {
         this.licenseService.licenses.next(await this.licenseService.getFromWebApi());
         this.eBookContentAreaService.eBookContentAreas.next(await this.eBookContentAreaService.getFromWebApi());
         this.eBookTextElementService.eBookTextElements.next(await this.eBookTextElementService.getFromWebApi());
+        this.personalityTestService.personalityTests.next(await this.personalityTestService.getFromWebApi());
     }
 
     

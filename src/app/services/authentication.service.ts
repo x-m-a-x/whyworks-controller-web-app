@@ -11,7 +11,7 @@ export class AuthenticationService {
     public currentUser: Observable<User>;
 
     constructor(private userService: UserService) {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('WW_currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
@@ -25,7 +25,7 @@ export class AuthenticationService {
         if (user && user.Admin) {
             // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
             user.Authdata = window.btoa(username + ':' + password);
-            localStorage.setItem('currentUser', JSON.stringify(user));
+            localStorage.setItem('WW_currentUser', JSON.stringify(user));
             this.currentUserSubject.next(user);
             return user;
         }
@@ -35,7 +35,7 @@ export class AuthenticationService {
 
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem('WW_currentUser');
         this.currentUserSubject.next(null);
     }
 }

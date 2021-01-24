@@ -30,7 +30,7 @@ export class ServiceBase<T extends CoreEntity> {
     public async getFromLocalStorage(): Promise<T[]> {
         let tCollection = [];
         let sCollection: string;
-        sCollection = localStorage.getItem(this.serviceConfig.entityName);
+        sCollection = localStorage.getItem("WW_" + this.serviceConfig.entityName);
 
         if (sCollection) {
             tCollection = await JSON.parse(sCollection);
@@ -39,7 +39,7 @@ export class ServiceBase<T extends CoreEntity> {
     }
 
     public async setToLocalStorage(entityColl: T[]): Promise<void> {
-        localStorage.setItem(this.serviceConfig.entityName, JSON.stringify(entityColl));
+        localStorage.setItem("WW_" + this.serviceConfig.entityName, JSON.stringify(entityColl));
     }
 
 
@@ -125,7 +125,7 @@ export class ServiceBase<T extends CoreEntity> {
     }
 
     private async getRequestCredentials(): Promise<any> {
-        let sCurrentUser = localStorage.getItem("currentUser");
+        let sCurrentUser = localStorage.getItem("WW_currentUser");
         let jCurrentUser = await JSON.parse(sCurrentUser);
 
         const httpOptions = {

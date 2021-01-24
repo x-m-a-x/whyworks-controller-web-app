@@ -77,10 +77,10 @@
             </div>
 
             <div class="classifier-results" >
-                <div *ngIf="apiRequestProcessing" class="spinner-div">
+                <div *ngIf="classificationResult && !classificationResult?.dim1_A" class="spinner-div">
                     <mat-spinner></mat-spinner>
                 </div>
-                <table *ngIf="classificationResult" class="classifier-form-field" [ngClass]="{'classifier-form-field-mobile': isMobile}">
+                <table *ngIf="classificationResult && classificationResult?.dim1_A" class="classifier-form-field" [ngClass]="{'classifier-form-field-mobile': isMobile}">
                     <tr>
                         <td>
                             Beziehung
@@ -127,6 +127,46 @@
                         </td>
                         <td>
                             {{classificationResult?.dim2_neg}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            {{classificationResult?.dim2_1}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            2
+                        </td>
+                        <td>
+                            {{classificationResult?.dim2_2}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            3
+                        </td>
+                        <td>
+                            {{classificationResult?.dim2_3}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            {{classificationResult?.dim2_4}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            5
+                        </td>
+                        <td>
+                            {{classificationResult?.dim2_5}}
                         </td>
                     </tr>
                 </table>

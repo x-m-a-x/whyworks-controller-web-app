@@ -19,6 +19,11 @@ export interface IClassificationResponse {
         dim1_M: number;
         dim2_pos: number;
         dim2_neg: number;
+        dim2_1: number;
+        dim2_2: number;
+        dim2_3: number;
+        dim2_4: number;
+        dim2_5: number;
     }
 }
 
@@ -62,6 +67,12 @@ export class ClassificationService {
 
                 result.dim2_pos = response.result.dim2_pos;
                 result.dim2_neg = response.result.dim2_neg;
+
+                result.dim2_1 = response.result.dim2_1;
+                result.dim2_2 = response.result.dim2_2;
+                result.dim2_3 = response.result.dim2_3;
+                result.dim2_4 = response.result.dim2_4;
+                result.dim2_5 = response.result.dim2_5;
             });
         }
         catch(error) {

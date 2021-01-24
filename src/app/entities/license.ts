@@ -1,5 +1,6 @@
 import { CoreEntity } from './core-entity';
 import { TestType } from './test-type';
+import { PersonalityTest } from './personality-test';
 
 
 
@@ -11,6 +12,7 @@ export class License extends CoreEntity {
     public CreatedAt: Date;
     public TestId?: number;
     public Info: string;
+    public Test?: PersonalityTest; 
 
     public static createFromApiItem(apiItem: License): License {
         let item = new License();

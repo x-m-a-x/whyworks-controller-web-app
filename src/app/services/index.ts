@@ -7,3 +7,4 @@ export * from './ebook-content-area.service';
 export * from './authentication.service';
 export * from './user.service';
 export * from './classification.service';
+export * from './personality-test.service';

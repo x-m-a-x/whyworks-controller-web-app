@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
-import { LicenseService } from '../../services';
+import { LicenseService, PersonalityTestService } from '../../services';
 import { License, PersonalityTest, TestType } from '../../entities';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -27,6 +27,7 @@ export class LicenseDetailComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private licenseService: LicenseService,
+        private personalityTestService: PersonalityTestService,
         private formBuilder: FormBuilder,
         private deviceDetectorService: DeviceDetectorService,
         private location: Location,
@@ -46,9 +47,7 @@ export class LicenseDetailComponent implements OnInit {
             this.license = this.licenseService.licenses.getValue()?.find(l => l.Id == +params['licenseId']);
 
             if (this.license?.TestId) {
-                // query personality test
-
-                // +params['licenseId']
+                this.license.Test = this.personalityTestService.personalityTests.getValue().find(pt => pt.Id == this.license.TestId);                
             }
         });
     }

@@ -13,4 +13,10 @@ export class ClassificationResult {
 
     public dim2_pos: number;
     public dim2_neg: number;
+
+    public dim2_1: number;
+    public dim2_2: number;
+    public dim2_3: number;
+    public dim2_4: number;
+    public dim2_5: number;
 }

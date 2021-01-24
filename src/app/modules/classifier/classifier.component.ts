@@ -15,7 +15,6 @@ export class ClassifierComponent implements OnInit {
     public isMobile: boolean = false;
     public classificationResult: ClassificationResult;
     public error: any;
-    public apiRequestProcessing: boolean = false;
 
     public classifyForm: FormGroup;
     public answer1Control = new FormControl();
@@ -42,7 +41,6 @@ export class ClassifierComponent implements OnInit {
 
     public async classify(): Promise<void> {
         this.classificationResult = null;
-        this.apiRequestProcessing = true;
         this.error = null;
         this.classificationService.classifyAllDimensions(+this.imageControl.value, this.answer1Control.value, this.answer2Control.value, this.answer3Control.value).then((result) => {
             console.log(result);
@@ -52,7 +50,7 @@ export class ClassifierComponent implements OnInit {
             this.error = error;
         });
 
-        this.apiRequestProcessing = false;
+        
 
 
     }

@@ -7,6 +7,7 @@ import { EBookContentAreaService } from './ebook-content-area.service';
 import { AuthenticationService } from './authentication.service';
 import { UserService } from './user.service';
 import { ClassificationService } from './classification.service';
+import { PersonalityTestService } from './personality-test.service';
 
 @NgModule({
     declarations: [],
@@ -18,7 +19,8 @@ import { ClassificationService } from './classification.service';
         EBookContentAreaService,
         AuthenticationService,
         UserService,
-        ClassificationService
+        ClassificationService,
+        PersonalityTestService
     ]
 })
 export class ServiceModule { }
