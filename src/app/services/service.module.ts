@@ -8,6 +8,10 @@ import { AuthenticationService } from './authentication.service';
 import { UserService } from './user.service';
 import { ClassificationService } from './classification.service';
 import { PersonalityTestService } from './personality-test.service';
+import { AdditionalFieldDefinitionService } from './additional-field-definition.service';
+import { AdditionalFieldValueService } from './additional-field-value.service';
+import { AdditionalValidValueService } from './additional-valid-value.service';
+
 
 @NgModule({
     declarations: [],
@@ -20,7 +24,10 @@ import { PersonalityTestService } from './personality-test.service';
         AuthenticationService,
         UserService,
         ClassificationService,
-        PersonalityTestService
+        PersonalityTestService,
+        AdditionalFieldDefinitionService,
+        AdditionalFieldValueService,
+        AdditionalValidValueService
     ]
 })
 export class ServiceModule { }

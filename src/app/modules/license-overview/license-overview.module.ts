@@ -15,6 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import { MatSelectModule } from '@angular/material/select';
         MatToolbarModule,
         MatDialogModule,
         MatSnackBarModule,
-        MatSelectModule
+        MatSelectModule,
+        MatCheckboxModule
     ],
     providers: [
         DatePipe

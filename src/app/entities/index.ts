@@ -8,3 +8,6 @@ export * from './ebook-content-area';
 export * from './ebook';
 export * from './user';
 export * from './classification-result';
+export * from './additional-field-definition';
+export * from './additional-valid-value';
+export * from './additional-field-value';
