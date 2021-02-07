@@ -23,27 +23,7 @@
                 </mat-expansion-panel-header>
                 <mat-panel-description>
                     <table style="width: 100%;">
-                        <tr>
-                            <mat-toolbar class="sub-toolbar-content-area" color="white">
-                                <span style="flex: 1 1 auto;"></span>
-                                <mat-icon *ngIf="editContentAreaId == area.Id" style="padding: 0 14px; cursor: pointer;"
-                                    (click)="addTextElement(area)" matTooltip="Neuer Text">
-                                    add</mat-icon>
-                                <mat-icon *ngIf="editContentAreaId != area.Id" style="padding: 0 14px; cursor: pointer;"
-                                    (click)="deleteContentArea(area)" matTooltip="Textbereich löschen">
-                                    delete</mat-icon>
-                                <mat-icon *ngIf="editContentAreaId != area.Id" style="padding: 0 14px; cursor: pointer;"
-                                    (click)="editContentArea(area)" matTooltip="Text bearbeiten">
-                                    edit</mat-icon>
-                                <mat-icon *ngIf="editContentAreaId == area.Id" style="padding: 0 14px; cursor: pointer;"
-                                    (click)="saveChanges()" matTooltip="Speichern">
-                                    save</mat-icon>
-                                <mat-icon *ngIf="editContentAreaId == area.Id" style="padding: 0 14px; cursor: pointer;"
-                                    (click)="cancelChanges()" matTooltip="Abbrechen">
-                                    undo</mat-icon>
-
-                            </mat-toolbar>
-                        </tr>
+                        
                         <tr>
                             <mat-sidenav-container class="content-area-container"
                                 *ngFor="let text of area.TextElements">
@@ -57,6 +37,9 @@
                                         </tr>
                                         <tr *ngIf="text.SelfAssessment">
                                             {{translateSelfAssessment(text.SelfAssessment)}}
+                                        </tr>
+                                        <tr *ngIf="text.Energization">
+                                            {{translateEnergization(text.Energization)}}
                                         </tr>
                                     </table>
                                     
@@ -83,6 +66,27 @@
                                     <mat-divider *ngIf="area.TextElements.length > 1"></mat-divider>
                                 </mat-sidenav-content>
                             </mat-sidenav-container>
+                        </tr>
+                        <tr>
+                            <mat-toolbar class="sub-toolbar-content-area" color="white">
+                                <span style="flex: 1 1 auto;"></span>
+                                <mat-icon *ngIf="editContentAreaId == area.Id" style="padding: 0 14px; cursor: pointer;"
+                                    (click)="addTextElement(area)" matTooltip="Neuer Text">
+                                    add</mat-icon>
+                                <mat-icon *ngIf="editContentAreaId != area.Id" style="padding: 0 14px; cursor: pointer;"
+                                    (click)="deleteContentArea(area)" matTooltip="Textbereich löschen">
+                                    delete</mat-icon>
+                                <mat-icon *ngIf="editContentAreaId != area.Id" style="padding: 0 14px; cursor: pointer;"
+                                    (click)="editContentArea(area)" matTooltip="Text bearbeiten">
+                                    edit</mat-icon>
+                                <mat-icon *ngIf="editContentAreaId == area.Id" style="padding: 0 14px; cursor: pointer;"
+                                    (click)="saveChanges()" matTooltip="Speichern">
+                                    save</mat-icon>
+                                <mat-icon *ngIf="editContentAreaId == area.Id" style="padding: 0 14px; cursor: pointer;"
+                                    (click)="cancelChanges()" matTooltip="Abbrechen">
+                                    undo</mat-icon>
+
+                            </mat-toolbar>
                         </tr>
                     </table>
                 </mat-panel-description>
