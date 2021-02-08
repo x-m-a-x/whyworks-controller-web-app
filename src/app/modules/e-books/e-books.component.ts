@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
-import { TestType, EBookContentArea, EBookTextElement, Unconscious, Congruence, SelfAssessment } from '../../entities';
+import { TestType, EBookContentArea, EBookTextElement, Unconscious, Congruence, SelfAssessment, Energization } from '../../entities';
 import { EBookContentAreaService, EBookTextElementService } from '../../services';
 import { Subscription, fromEventPattern } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -216,5 +216,51 @@ export class EBooksComponent implements OnInit, OnDestroy {
         else if (value == SelfAssessment.MuchHigher) {
             return "starke Überschätzung";
         }
+    }
+
+    public translateEnergization(value: Energization): string {
+        if (value == Energization.NEgreaterZero) {
+            return "NE > 0";
+        }
+        else if (value == Energization.PEgreaterZero) {
+            return "PE > 0";
+        }
+        else if (value == Energization.PEgreaterNE) {
+            return "PE > NE";
+        }
+        else if (value == Energization.NEgreaterPE) {
+            return "NE > PE";
+        }
+        else if (value == Energization.PEgreaterequalNE) {
+            return "PE >= NE";
+        }
+        else if (value == Energization.NEgreaterequalPE) {
+            return "NE >= PE";
+        }
+        else if (value == Energization.PEgreaterNEAndPEgreaterZero) {
+            return "PE > NE und PE > 0";
+        }
+        else if (value == Energization.NEgreaterPEAndPEgreaterZero) {
+            return "NE > PE und PE > 0";
+        }
+        else if (value == Energization.PEgreaterequalNEAndPEgreaterZero) {
+            return "PE >= NE und PE > 0";
+        }
+        else if (value == Energization.NEgreaterequalPEAndPEgreaterZero) {
+            return "NE >= PE und PE > 0";
+        }
+        else if (value == Energization.PEgreaterNEAndNEgreaterZero) {
+            return "PE > NE und NE > 0";
+        }
+        else if (value == Energization.NEgreaterPEAndNEgreaterZero) {
+            return "NE > PE und NE > 0";
+        }
+        else if (value == Energization.PEgreaterequalNEAndNEgreaterZero) {
+            return "PE >= NE und NE > 0";
+        }
+        else if (value == Energization.NEgreaterequalPEAndNEgreaterZero) {
+            return "NE >= PE und NE > 0";
+        }
+
     }
 }
