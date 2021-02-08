@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from "@angular/core";
-import { LicenseService } from '../../services';
+import { LicenseService, AdditionalFieldDefinitionService } from '../../services';
 import { License, TestType } from '../../entities';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common'
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Router } from '@angular/router';
 import { LicenseAddDialogComponent } from './license-add-dialog.component';
+import { LicenseAddFieldsDialogComponent } from './liceense-add-fields-dialog.component';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -18,6 +19,7 @@ export interface iLicense {
     CreatedAt: string;
     TestId?: number;
     Info: string;
+    AddFields: number;
 }
 
 @Component({
@@ -29,7 +31,7 @@ export interface iLicense {
 
 export class LicenseOverviewComponent implements OnInit, OnDestroy, AfterViewInit {
     public licenses: License[];
-    public displayedColumns: string[] = ['LicenseKey', 'Activated', 'LicenseType', 'CreatedAt', 'Info'];
+    public displayedColumns: string[] = ['LicenseKey', 'Activated', 'LicenseType', 'CreatedAt', 'AddFields', 'Info'];
     public isLoadingLicenses = true;
     public dataSource: MatTableDataSource<any>;
     public isDesktopDevice: boolean = true;
@@ -41,6 +43,7 @@ export class LicenseOverviewComponent implements OnInit, OnDestroy, AfterViewIni
 
     constructor(
         private licenseService: LicenseService,
+        private additionalFieldDefinitionService: AdditionalFieldDefinitionService,
         private datePipe: DatePipe,
         private deviceDetectorService: DeviceDetectorService,
         private router: Router,
@@ -97,7 +100,9 @@ export class LicenseOverviewComponent implements OnInit, OnDestroy, AfterViewIni
             LicenseType: TestType[license.LicenseType],
             CreatedAt: this.isMobile ? this.datePipe.transform(license.CreatedAt, 'dd.MM.yyyy') : this.datePipe.transform(license.CreatedAt, 'dd.MM.yyyy HH:mm:ss'),
             TestId: license.TestId,
-            Info: license.Info
+            Info: license.Info,
+            AddFields: this.additionalFieldDefinitionService.additionalFieldDefinitions.getValue()?.filter(afd => afd.LicenseId == license.Id)?.length ?
+                this.additionalFieldDefinitionService.additionalFieldDefinitions.getValue()?.filter(afd => afd.LicenseId == license.Id)?.length : 0
         }
 
         return Promise.resolve(iLicense);
@@ -115,6 +120,18 @@ export class LicenseOverviewComponent implements OnInit, OnDestroy, AfterViewIni
         dialogRef.afterClosed().subscribe(async result => {
             this.isLoadingLicenses = true;
             this.licenseService.licenses.next(await this.licenseService.getLicensesSortedByDate());
+        });
+    }
+
+    public async addFields(iLicense: any) {
+        const dialogRef = this.dialog.open(LicenseAddFieldsDialogComponent, {
+            'data': iLicense.Id,
+            width: '80%'
+        });
+
+        dialogRef.afterClosed().subscribe(async result => {
+            
+            this.additionalFieldDefinitionService.additionalFieldDefinitions.next(await this.additionalFieldDefinitionService.getFromWebApi());
         });
     }
 

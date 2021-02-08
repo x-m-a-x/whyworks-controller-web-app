@@ -1,0 +1,101 @@
+<div class="container_add_fields">
+
+    <div class="license-details mat-elevation-z8" [ngClass]="{'license-details-mobile': isMobile}">
+        <mat-toolbar color="white">
+            <mat-toolbar-row>
+                <span>
+                    <h3>Zusatzfelder</h3>
+                </span>
+                <span style="flex: 1 1 auto;"></span>
+                <!-- <mat-icon *ngIf="!edit" style="padding: 0 14px; cursor: pointer;" (click)="editLicense()">
+                    edit</mat-icon>
+                <mat-icon *ngIf="edit" style="padding: 0 14px; cursor: pointer;" (click)="saveLicense()">
+                    save</mat-icon> -->
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <div class="additional-fields" [formGroup]="additionalFields">
+
+            <table>
+
+                <tr>
+                    <td colspan="2">
+                        <mat-form-field>
+                            <mat-label>Name</mat-label>
+                            <input type="text" matInput [formControl]="additionalFieldNameControl">
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <mat-form-field>
+                            <mat-label>Typ auswählen</mat-label>
+                            <mat-select [formControl]="additionalFieldTypeControl" required>
+                                <mat-option></mat-option>
+                                <mat-option *ngFor="let type of additionalFieldTypes" [value]="type">
+                                    {{type}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <mat-checkbox (change)="clickMandatoryField($event)">Pflichtangabe</mat-checkbox>
+                    </td>
+                </tr>
+            </table>
+            <div class="options-edit">
+
+                <button mat-icon-button *ngIf="edit">
+                    <mat-icon *ngIf="edit" matTooltip="Abbrechen" 
+                        (click)="cancelUpdate()">
+                        cancel</mat-icon>
+                </button>
+                <button mat-icon-button *ngIf="edit">
+                    <mat-icon *ngIf="edit" matTooltip="Datenfeld ändern"
+                        (click)="changeDef()">
+                        check_circle</mat-icon>
+                </button>
+                <button mat-icon-button *ngIf="!edit" [disabled]="!additionalFieldNameControl.value || !additionalFieldTypeControl.value">
+                    <mat-icon matTooltip="Datenfeld hinzufügen" (click)="addDef()">
+                        add</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <table *ngIf="dataFieldDefs?.length > 0" mat-table [dataSource]="dataSource" matSort
+            style="width: 100%; margin-top: 20px; margin-bottom: 20px;">
+            <ng-container matColumnDef="Name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let element" (click)="editAddField(element)"> {{element.Name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="DataType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Typ </th>
+                <td mat-cell *matCellDef="let element" (click)="editAddField(element)"> {{getNameOfDataType(element.DataType)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Mandatory">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Pflicht </th>
+                <td mat-cell *matCellDef="let element" (click)="editAddField(element)"> {{element.Mandatory ? "Ja" : "Nein"}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+
+
+        <div class="details-footer">
+            <mat-toolbar color="transparent">
+                <mat-toolbar-row>
+                    <span></span>
+                    <span style="flex: 1 1 auto;"></span>
+                    <button mat-flat-button color="primary" (click)="saveChanges()"
+                        style="margin-right: 10px;">Speichern</button>
+                    <button mat-flat-button color="primary" (click)="backClicked()">Zurück</button>
+                </mat-toolbar-row>
+            </mat-toolbar>
+        </div>
+    </div>
+</div>

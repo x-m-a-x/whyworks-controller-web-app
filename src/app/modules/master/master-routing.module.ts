@@ -7,6 +7,7 @@ import { LicenseDetailComponent } from '../license-detail';
 import { EBooksCategoriesComponent } from '../e-books-categories';
 import { AccountComponent } from '../account';
 import { ClassifierComponent } from '../classifier';
+import { AdditionalFieldsComponent } from '../additional-fields';
 
 
 const masterRoutes: Routes = [
@@ -27,6 +28,10 @@ const masterRoutes: Routes = [
             {
                 path: "LicenseDetails/:licenseId",
                 loadChildren: "../license-detail/license-detail.module#LicenseDetailModule"
+            },
+            {
+                path: "AdditionalFields/:licenseId",
+                loadChildren: "../additional-fields/additional-fields.module#AdditionalFieldsModule"
             },
             {
                 path: "Account",

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LicenseOverviewRoutingModule } from './license-overview-routing.module';
 import { LicenseOverviewComponent } from './license-overview.component';
 import { LicenseAddDialogComponent } from './license-add-dialog.component';
+import { LicenseAddFieldsDialogComponent } from './liceense-add-fields-dialog.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +21,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 @NgModule({
     declarations: [
         LicenseOverviewComponent,
-        LicenseAddDialogComponent
+        LicenseAddDialogComponent,
+        LicenseAddFieldsDialogComponent
     ],
     imports: [
         CommonModule,

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LicenseOverviewComponent } from './license-overview.component';
-import { License, TestType, DataType } from '../../entities';
+import { License, TestType } from '../../entities';
 import { LicenseService, AppConfigService } from '../../services';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
@@ -15,18 +15,15 @@ export class LicenseAddDialogComponent implements OnInit {
     public placeName: string;
     public licenseTypes: any[] = [];
     public isLoadingLicenses = false;
-    public additionalFieldTypes: any[] = [];
-    public mandatory: boolean = false;
+    
+    
 
     public licenseSettings: FormGroup;
     public licenseNumberControl = new FormControl();
     public licenseTypeControl = new FormControl();
     public licenseInfoControl = new FormControl();
 
-    public additionalFields: FormGroup;
-    public additionalFieldNameControl = new FormControl();
-    public additionalFieldTypeControl = new FormControl();
-    public additionalFieldMandatoryControl = new FormControl();
+    
 
 
     constructor(
@@ -43,16 +40,11 @@ export class LicenseAddDialogComponent implements OnInit {
             licenseInfo: this.licenseInfoControl,
         });
 
-        this.additionalFields = formBuilder.group({
-            additionalFieldName: this.additionalFieldNameControl,
-            additionalFieldType: this.additionalFieldTypeControl,
-            additionalFieldMandatory: this.additionalFieldMandatoryControl,
-        });
+       
     }
 
     public async ngOnInit(): Promise<void> {
         await this.testTypesToArray();
-        await this.additionalFieldTypesToArray();
     }
 
     private async testTypesToArray(): Promise<void> {
@@ -62,12 +54,6 @@ export class LicenseAddDialogComponent implements OnInit {
         }
     }
 
-    private async additionalFieldTypesToArray(): Promise<void> {
-        this.additionalFieldTypes = [];
-        for (let i = 1; i < (Object.keys(DataType).length + 1) / 2; i++) {
-            this.additionalFieldTypes.push(DataType[i]);
-        }
-    }
 
     public async backClicked(): Promise<void> {
         this.dialogRef.close();
@@ -116,7 +102,5 @@ export class LicenseAddDialogComponent implements OnInit {
         return licenseKey;
     }
 
-    public clickMandatoryField(event: any): void {
-        this.mandatory = event?.checked;
-    }
+    
 }

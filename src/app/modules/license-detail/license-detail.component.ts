@@ -1,11 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from '@angular/router';
-import { LicenseService, PersonalityTestService } from '../../services';
-import { License, PersonalityTest, TestType } from '../../entities';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { ActivatedRoute, Router } from '@angular/router';
+import { LicenseService, PersonalityTestService, AdditionalFieldDefinitionService } from '../../services';
+import { License, PersonalityTest, TestType, AdditionalFieldDefinition } from '../../entities';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from "rxjs";
 
 @Component({
     selector: "license-detail",
@@ -13,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     templateUrl: "./license-detail.component.html"
 })
 
-export class LicenseDetailComponent implements OnInit {
+export class LicenseDetailComponent implements OnInit, OnDestroy {
     public license: License;
     public test: PersonalityTest;
     public edit: boolean = false;
@@ -23,15 +24,19 @@ export class LicenseDetailComponent implements OnInit {
     public licenseSettings: FormGroup;
     public licenseInfoControl = new FormControl();
     public licenseTypeControl = new FormControl();
+    public addFieldDefs: AdditionalFieldDefinition[] = [];
+    private addFieldDefsSubscription: Subscription;
 
     constructor(
         private route: ActivatedRoute,
         private licenseService: LicenseService,
         private personalityTestService: PersonalityTestService,
+        private additionalFieldDefinitionService: AdditionalFieldDefinitionService,
         private formBuilder: FormBuilder,
         private deviceDetectorService: DeviceDetectorService,
         private location: Location,
         private snackBar: MatSnackBar,
+        private router: Router,
     ) {
         this.licenseSettings = formBuilder.group({
             licenseInfo: this.licenseInfoControl,
@@ -50,6 +55,17 @@ export class LicenseDetailComponent implements OnInit {
                 this.license.Test = this.personalityTestService.personalityTests.getValue().find(pt => pt.Id == this.license.TestId);                
             }
         });
+
+        this.addFieldDefsSubscription = this.additionalFieldDefinitionService.additionalFieldDefinitions.subscribe((addFieldDefs) => {
+            this.addFieldDefs = addFieldDefs?.filter(afd => afd.LicenseId == this.license?.Id);
+            if (!this.addFieldDefs) {
+                this.addFieldDefs = [];
+            }
+        })
+    }
+
+    public async ngOnDestroy(): Promise<void> {
+        this.addFieldDefsSubscription.unsubscribe();
     }
 
     public getStringOfTestType(index: any): string {
@@ -81,5 +97,9 @@ export class LicenseDetailComponent implements OnInit {
 
     public backClicked() {
         this.location.back();
+    }
+
+    public addFields() {
+        this.router.navigateByUrl("AdditionalFields/" + this.license.Id);
     }
 }

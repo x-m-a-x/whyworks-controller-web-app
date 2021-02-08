@@ -27,7 +27,7 @@ export class AdditionalFieldDefinition extends CoreEntity {
         const item: any = {
             Id: this.Id,
             Name: this.Name,
-            DataType: this.DataType,
+            DataType: +this.DataType ? this.DataType : DataType[this.DataType],
             Mandatory: this.Mandatory,
             LicenseId: this.LicenseId
         }

@@ -1,6 +1,6 @@
 {
     "version": "1.0.0.0",
-    "apiEndpoint": "http://localhost:56923/api/",
+    "apiEndpoint": "http://whyworks-api.ddns.net/api/",
     "lengthLicenseKey": 6,
     "classificationApiEndpoint": "http://whyworks-classifier.ddns.net/"
 }
