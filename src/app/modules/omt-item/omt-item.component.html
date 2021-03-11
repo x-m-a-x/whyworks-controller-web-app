@@ -1,0 +1,128 @@
+<div class="omt-item-container">
+    <mat-card>
+        <img class="omt-image" mat-card-image
+            src="assets/omt-images/img{{omt.Image}}_{{omt.ChosenPerson ? omt.ChosenPerson : 1}}.jpg">
+    </mat-card>
+    <div class="omt-answers">
+        <table>
+            <tr>
+                <td colspan="2" class="omt-question">
+                    Was ist für die Person wichtig und was tut sie?
+                </td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td class="omt-answer"><b>{{omt.Answer1}}</b></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="omt-question">
+                    Wie fühlt sich die Person?
+                </td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td class="omt-answer"><b>{{omt.Answer2}}</b></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="omt-question">
+                    Warum fühlt sich die Person so?
+                </td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td class="omt-answer"><b>{{omt.Answer3}}</b></td>
+            </tr>
+        </table>
+    </div>
+    <div class="omt-classification" [formGroup]="image_classification">
+        <mat-toolbar class="sub-toolbar-content-area" color="white">
+            <span style="flex: 1 1 auto;"></span>
+            <button mat-icon-button color="primary" *ngIf="!edit">
+                <mat-icon style="cursor: pointer;" (click)="editClassification()"
+                    matTooltip="Klassifizierung bearbeiten">
+                    edit</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" *ngIf="edit">
+                <mat-icon style="cursor: pointer;" (click)="classify()" matTooltip="Klassifizieren">
+                    category</mat-icon>
+            </button>
+
+            <button mat-icon-button color="primary" *ngIf="edit">
+                <mat-icon style="cursor: pointer;" (click)="saveChanges()" matTooltip="Speichern">
+                    save</mat-icon>
+            </button>
+
+            <button mat-icon-button color="primary" *ngIf="edit">
+                <mat-icon style="cursor: pointer;" (click)="cancelChanges()" matTooltip="Abbrechen">
+                    undo</mat-icon>
+            </button>
+
+        </mat-toolbar>
+
+        <div *ngIf="classificationResult && !classificationResult?.dim1_A" class="spinner-div">
+            <mat-spinner></mat-spinner>
+        </div>
+
+
+        <mat-form-field appearance="fill" class="omt_score_input">
+            <mat-label>Macht</mat-label>
+            <input matInput type="number" [formControl]="mightControl">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="omt_score_input">
+            <mat-label>Beziehung</mat-label>
+            <input matInput type="number" [formControl]="relationControl">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="omt_score_input">
+            <mat-label>Freiheit</mat-label>
+            <input matInput type="number" [formControl]="freedomControl">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="omt_score_input">
+            <mat-label>Leistung</mat-label>
+            <input matInput type="number" [formControl]="performanceControl">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="omt_score_input">
+            <mat-label>Positiv</mat-label>
+            <input matInput type="number" [formControl]="positiveControl">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="omt_score_input">
+            <mat-label>Negativ</mat-label>
+            <input matInput type="number" [formControl]="negativeControl">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="omt_score_input">
+            <mat-label>1</mat-label>
+            <input matInput type="number" [formControl]="oneControl">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="omt_score_input">
+            <mat-label>2</mat-label>
+            <input matInput type="number" [formControl]="twoControl">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="omt_score_input">
+            <mat-label>3</mat-label>
+            <input matInput type="number" [formControl]="threeControl">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="omt_score_input">
+            <mat-label>4</mat-label>
+            <input matInput type="number" [formControl]="fourControl">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="omt_score_input">
+            <mat-label>5</mat-label>
+            <input matInput type="number" [formControl]="fiveControl">
+        </mat-form-field>
+
+
+    </div>
+
+</div>

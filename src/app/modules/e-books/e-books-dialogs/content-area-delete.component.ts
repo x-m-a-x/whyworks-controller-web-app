@@ -34,7 +34,7 @@ export class ContentAreaDeleteComponent implements OnInit {
     }
 
     public async onOkClick(): Promise<void> {
-        let textElements = this.eBookTextElementService.eBookTextElements.getValue();
+        let textElements = this.eBookTextElementService.eBookTextElements.getValue().filter(ete => ete.EBookContentAreaId == this.eBookContentArea.Id);
         for (let i = 0; i < textElements?.length; i++) {
             await this.eBookTextElementService.deleteFromWebApi(textElements[i].Id);
         }

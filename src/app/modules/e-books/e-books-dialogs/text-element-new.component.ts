@@ -19,6 +19,7 @@ export class TextElementNewComponent implements OnInit {
     public congruenceControl = new FormControl();
     public selfAssessmentControl = new FormControl();
     public energizationControl = new FormControl();
+    public specialCaseControl = new FormControl();
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -33,6 +34,7 @@ export class TextElementNewComponent implements OnInit {
             congruence: this.congruenceControl,
             selfAssessment: this.selfAssessmentControl,
             energization: this.energizationControl,
+            specialCase: this.specialCaseControl,
         });
     }
 
@@ -51,6 +53,7 @@ export class TextElementNewComponent implements OnInit {
         textElement.SelfAssessment = this.selfAssessmentControl.value;
         textElement.Energization = this.energizationControl.value;
         textElement.EBookContentAreaId = this.contentArea.Id;
+        textElement.SpecialCase = this.specialCaseControl.value;
 
         
         await this.eBookTextElementService.setSingleToWebApi(textElement);

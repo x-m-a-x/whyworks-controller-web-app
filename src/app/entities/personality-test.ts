@@ -1,7 +1,7 @@
 import { CoreEntity } from './core-entity';
 // import { OMTSurvey } from './omt-survey';
 import { TestType } from './test-type';
-// import { MUTSurvey } from './mut-survey';
+import { MUTSurvey } from './mut-survey';
 import { License } from './license';
 
 export class PersonalityTest extends CoreEntity {
@@ -10,7 +10,7 @@ export class PersonalityTest extends CoreEntity {
     public MailAddress: string;
     public Type: TestType;
     public MUTSurveyId?: number;
-    // public MUTSurvey?: MUTSurvey;
+    public MUTSurvey?: MUTSurvey;
     public OMTSurveyId?: number;
     // public OMTSurvey?: OMTSurvey;
     public LicenseId?: number;

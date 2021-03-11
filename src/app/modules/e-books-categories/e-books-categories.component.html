@@ -93,5 +93,59 @@
             </p> 
             
         </mat-grid-tile> -->
+
+        <mat-grid-tile class="grid_tile">
+            <mat-card class="ebook_category_card" matRipple (click)="onEBookCategoryClicked('StudentEN')">
+                <mat-card-header>
+                    <mat-card-title>
+                        <b>Studenten (Englisch)</b>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content >
+                    <p class="category_desc_mobile">
+                        Text-Bereiche: {{getContentAreasPerType('StudentEN')}}
+                    </p>
+                    <p class="category_desc_mobile">
+                        Text-Bausteine: {{getTextElementsPerType('StudentEN')}}
+                    </p>
+                  </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile class="grid_tile">
+            <mat-card class="ebook_category_card" matRipple (click)="onEBookCategoryClicked('ManagerEN')">
+                <mat-card-header>
+                    <mat-card-title>
+                        <b>Führungskräfte (Englisch)</b>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content >
+                    <p class="category_desc_mobile">
+                        Text-Bereiche: {{getContentAreasPerType('ManagerEN')}}
+                    </p>
+                    <p class="category_desc_mobile">
+                        Text-Bausteine: {{getTextElementsPerType('ManagerEN')}}
+                    </p>
+                  </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile class="grid_tile">
+            <mat-card class="ebook_category_card" matRipple (click)="onEBookCategoryClicked('OtherEN')">
+                <mat-card-header>
+                    <mat-card-title>
+                        <b>Andere (Englisch)</b>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content >
+                    <p class="category_desc_mobile">
+                        Text-Bereiche: {{getContentAreasPerType('OtherEN')}}
+                    </p>
+                    <p class="category_desc_mobile">
+                        Text-Bausteine: {{getTextElementsPerType('OtherEN')}}
+                    </p>
+                  </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
     </mat-grid-list>
 </div>

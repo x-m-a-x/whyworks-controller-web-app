@@ -65,6 +65,22 @@
                     </mat-select>
                 </mat-form-field>
             </tr>
+            <tr>
+                <mat-form-field appearance="fill" class="new-text-input-field">
+                    <mat-label>Spezialfälle</mat-label>
+                    <mat-select [formControl]="specialCaseControl">
+                        <mat-option value=""></mat-option>
+                        <mat-option value="Gemeinsames_Leisten">Gemeinsames Leisten</mat-option>
+                        <mat-option value="Startup">Startup</mat-option>
+                        <mat-option value="Pro_Soziale_Macht">Pro Soziale Macht</mat-option>
+                        <mat-option value="Beziehungsfokus">Beziehungsfokus</mat-option>
+                        <mat-option value="Freies_Leisten">Freies Leisten</mat-option>
+                        <mat-option value="Erfahrungsorientierung">Erfahrungsorientierung</mat-option>
+                        <mat-option value="Wirkungsorientierung">Wirkungsorientierung</mat-option>
+                        <mat-option value="Sozialantriebe">Sozialantriebe</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </tr>
             
         </table>
     </form>

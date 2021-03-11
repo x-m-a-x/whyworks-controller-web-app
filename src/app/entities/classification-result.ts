@@ -1,6 +1,7 @@
 
 
 export class ClassificationResult {
+    public omtItemId: number;
     public answer1: string;
     public answer2: string;
     public answer3: string;

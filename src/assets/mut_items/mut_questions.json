@@ -1,0 +1,439 @@
+[
+    {
+        "question": 1,
+        "de": "Es fällt mir leicht, auf einen lieben Menschen einzugehen und gleichzeitig auf meine eigenen Bedürfnisse zu achten.",
+        "en": "It is easy for me to respond to a dear person and at the same time pay attention to my own needs."
+    },
+    {
+        "question": 2,
+        "de": "Ich mag körperliche Nähe zu anderen Menschen.",
+        "en": "I like physical proximity to other people."
+    },
+    {
+        "question": 3,
+        "de": "Ich mache mir oft Gedanken darüber, was mein Verhalten bei Freunden oder meinem Partner/meiner Partnerin bewirkt.",
+        "en": "I often worry about what my behaviour does to my friends or my partner."
+    },
+    {
+        "question": 4,
+        "de": "Wenn ich auf Ablehnung stoße, bin ich wie gelähmt.",
+        "en": "If I meet rejection, I'm paralyzed."
+    },
+    {
+        "question": 5,
+        "de": "Wenn ich meine Meinung äußere, fühle ich mich meist ganz frei, das zu sagen, was ich wirklich vertreten kann.",
+        "en": "When I express my opinion, I usually feel completely free to say what I can really say."
+    },
+    {
+        "question": 6,
+        "de": "Ich strahle oft Überlegenheit aus.",
+        "en": "I often radiate superiority."
+    },
+    {
+        "question": 7,
+        "de": "Wenn ich eine einflussreiche Position erreicht habe, drängt es mich immer weiter nach oben.",
+        "en": "When I have reached an influential position, it pushes me further and further up."
+    },
+    {
+        "question": 8,
+        "de": "Auch wenn ich spüre, was ich brauche, sage ich es nicht gern.",
+        "en": "Even when I feel what I need, I do not like to say it."
+    },
+    {
+        "question": 9,
+        "de": "Wenn ich an meine bisherigen Leistungen denke, fühle ich mich ganz wohl.",
+        "en": "When I think about my achievements so far, I feel quite comfortable."
+    },
+    {
+        "question": 10,
+        "de": "Unter Druck kann ich keine guten Leistungen zuwege bringen.",
+        "en": "I can't perform well under pressure."
+    },
+    {
+        "question": 11,
+        "de": "Je schwieriger eine Aufgabe wird, desto zäher wird mein Durchhaltevermögen.",
+        "en": "The more difficult a task becomes, the tougher my stamina."
+    },
+    {
+        "question": 12,
+        "de": "Wenn ich einen Fehler mache, kann ich selbst einfache Sachen nicht mehr.",
+        "en": "If I make a mistake, I can't even do simple things."
+    },
+    {
+        "question": 13,
+        "de": "Es macht mir Freude, mich mit anderen Menschen auszutauschen.",
+        "en": "It gives me pleasure to exchange with other people."
+    },
+    {
+        "question": 14,
+        "de": "Oft suche ich regelrecht die Auseinandersetzung mit anderen.",
+        "en": "Often I literally seek the confrontation with others."
+    },
+    {
+        "question": 15,
+        "de": "Wenn ich eine schwierige Aufgabe gelöst habe, suche ich mir am liebsten gleich die nächste Herausforderung.",
+        "en": "When I have solved a difficult task, I prefer to look for the next challenge."
+    },
+    {
+        "question": 16,
+        "de": "Das Zusammensein mit anderen Menschen gibt meinem Leben Sinn.",
+        "en": "Being together with other people gives my life meaning."
+    },
+    {
+        "question": 17,
+        "de": "Oft spüre ich das intensive Bedürfnis, anderen nah zu sein.",
+        "en": "I often feel an intense need to be close to others."
+    },
+    {
+        "question": 18,
+        "de": "Wenn ich eine Partnerschaft oder Freundschaft habe, überlege ich oft, was man noch besser machen kann.",
+        "en": "When I have a partnership or friendship, I often think about what can be done better."
+    },
+    {
+        "question": 19,
+        "de": "Wenn mich jemand nicht mag, geht mir das lange nach.",
+        "en": "When somebody doesn't like me, I feel bad."
+    },
+    {
+        "question": 20,
+        "de": "Wenn mir jemand über den Mund fährt, habe ich gleich die passende Reaktion parat.",
+        "en": "If someone cuts me short, I have the right reaction immediately."
+    },
+    {
+        "question": 21,
+        "de": "Ich fühle mich anderen oft überlegen.",
+        "en": "I often feel superior to others."
+    },
+    {
+        "question": 22,
+        "de": "Wenn ich jemanden von etwas überzeugen will, überlege ich mir gut, auf was er am ehesten anspricht.",
+        "en": "When I want to convince someone of something, I think carefully about what they are most likely to respond to."
+    },
+    {
+        "question": 23,
+        "de": "Wenn jemand sehr selbstbewusst auftritt, halte ich mich eher zurück.",
+        "en": "When someone is very self-confident, I tend to hold back."
+    },
+    {
+        "question": 24,
+        "de": "Bei den Aufgaben, die ich im Alltag bearbeite, fühle ich mich ziemlich frei, so vorzugehen, wie ich es für richtig halte.",
+        "en": "With the tasks I work on in my everyday life, I feel quite free to proceed as I see fit."
+    },
+    {
+        "question": 25,
+        "de": "Wenn man mich unter Druck setzt, sinkt meine Leistungsfähigkeit.",
+        "en": "If I am put under pressure, my efficiency decreases."
+    },
+    {
+        "question": 26,
+        "de": "Im Leistungsbereich wähle ich mir am liebsten die schwierigsten Aufgaben.",
+        "en": "In the performance area I prefer to choose the most difficult tasks."
+    },
+    {
+        "question": 27,
+        "de": "Fehlschläge nehmen mir meist völlig den Mut.",
+        "en": "Failures usually completely take away my courage."
+    },
+    {
+        "question": 28,
+        "de": "Ich fühle mich in meinem Element, wenn ich mit anderen Menschen plaudern kann.",
+        "en": "I feel comfortable when I can chat with other people."
+    },
+    {
+        "question": 29,
+        "de": "Andere haben es oft gern, wenn ich sage, wo es langgeht.",
+        "en": "Others often like it when I tell them what to do."
+    },
+    {
+        "question": 30,
+        "de": "Wenn es eine schwierige Aufgabe anzupacken gilt, melde ich mich oft freiwillig.",
+        "en": "When there is a difficult task to tackle, I often volunteer."
+    },
+    {
+        "question": 31,
+        "de": "Wenn ich in eine Gruppe komme, entwickle ich schnell ein gutes Gespür dafür, welche Themen jede einzelne Person anspricht und welche nicht.",
+        "en": "When I come into a group, I quickly develop a good sense of which topics each individual person is addressing and which are not."
+    },
+    {
+        "question": 32,
+        "de": "Menschen in meiner Nähe nehmen meist meine ganze Aufmerksamkeit ein.",
+        "en": "People around me usually take up all my attention."
+    },
+    {
+        "question": 33,
+        "de": "In einer Freundschaft überlege ich mir oft, welche Folgen mein Verhalten für die Beziehung hat.",
+        "en": "In a friendship I often think about the consequences of my behaviour for the relationship."
+    },
+    {
+        "question": 34,
+        "de": "Wenn jemand unfreundlich zu mir ist, macht mich das ganz fertig.",
+        "en": "When someone is unkind to me, it kills me."
+    },
+    {
+        "question": 35,
+        "de": "Bei Meinungsverschiedenheiten fällt mir meist irgendetwas ein, wie ich meine Auffassung durchsetzen kann.",
+        "en": "In case of differences of opinion, I usually find something to enforce my opinion."
+    },
+    {
+        "question": 36,
+        "de": "Ich fühle mich bei Menschen wohl, denen ich klar überlegen bin.",
+        "en": "I feel comfortable with people whom I am clearly superior to."
+    },
+    {
+        "question": 37,
+        "de": "Wenn es um Durchsetzn geht, ist für mich nur die erste Position gut genug.",
+        "en": "When it comes to assertion, only the first position is good enough for me."
+    },
+    {
+        "question": 38,
+        "de": "Gegenüber Menschen mit machtbetontem Auftreten fühle ich mich oft unterlegen.",
+        "en": "I often feel inferior to people with an emphasis on power."
+    },
+    {
+        "question": 39,
+        "de": "Mit meinen bisherigen Leistungen im Leben bin ich recht zufrieden.",
+        "en": "I am quite satisfied with my achievements in life so far."
+    },
+    {
+        "question": 40,
+        "de": "Ich kann gute Leistungen nur erbringen, wenn ich spontan Lust dazu habe.",
+        "en": "I can only perform well when I have a spontaneous desire to do so."
+    },
+    {
+        "question": 41,
+        "de": "Am meisten reizen mich die ganz schwierigen Aufgaben.",
+        "en": "What I find most appealing are the very difficult tasks."
+    },
+    {
+        "question": 42,
+        "de": "Eine schlechte Leistung kann mich richtig fertig machen."
+    },
+    {
+        "question": 43,
+        "de": "Menschliche Nähe ist mir in meinem Leben wichtiger als Leistung"
+    },
+    {
+        "question": 44,
+        "de": "Ich komme oft erst in Schwung, wenn ich mich mit jemandem auseinandersetzen kann."
+    },
+    {
+        "question": 45,
+        "de": "Wenn ich stundenlang an einer schwierigen Sache arbeiten kann, bin ich rundum glücklich."
+    },
+    {
+        "question": 46,
+        "de": "Ich finde immer wieder Menschen, mit denen ich echte Gefühle austauschen kann."
+    },
+    {
+        "question": 47,
+        "de": "Im Umgang mit anderen lasse ich mich ganz von meinen Gefühlen leiten."
+    },
+    {
+        "question": 48,
+        "de": "Von einer Partnerschaft erwarte ich viel."
+    },
+    {
+        "question": 49,
+        "de": "Wenn ich jemanden kennen lerne, habe ich oft Angst, abgelehnt zu werden."
+    },
+    {
+        "question": 50,
+        "de": "Ich bin sehr schlagfertig."
+    },
+    {
+        "question": 51,
+        "de": "Gefühle der Überlegenheit tun mir gut."
+    },
+    {
+        "question": 52,
+        "de": "Ich strebe danach, in einer Rangfolge immer weiter nach oben zu kommen."
+    },
+    {
+        "question": 53,
+        "de": "Es fällt mir oft schwer einzuschätzen, ob ich gegen einen anderen Menschen ankomme oder nicht."
+    },
+    {
+        "question": 54,
+        "de": "Mit den meisten Aufgaben, die ich annehme, kann ich mich voll und ganz identifizieren."
+    },
+    {
+        "question": 55,
+        "de": "Wenn Leistung von mir gefordert wird, baue ich ab."
+    },
+    {
+        "question": 56,
+        "de": "Mein Leistungswille ist unersättlich."
+    },
+    {
+        "question": 57,
+        "de": "Ein Misserfolg kann mir total den Schwung nehmen."
+    },
+    {
+        "question": 58,
+        "de": "Ich mag es, mit netten Menschen über alles Mögliche zu reden."
+    },
+    {
+        "question": 59,
+        "de": "In einer Gruppe vertrete ich meine Vorstellungen mit Nachdruck."
+    },
+    {
+        "question": 60,
+        "de": "Oft suche ich mir ganz spontan eine Beschäftigung, bei der ich meine Fähigkeiten prüfen kann."
+    },
+    {
+        "question": 61,
+        "de": "Wenn ich mit anderen zusammen bin, ist mir Spaß wichtiger als persönliche Gespräche."
+    },
+    {
+        "question": 62,
+        "de": "Ich setze mich gern für andere Menschen ein."
+    },
+    {
+        "question": 63,
+        "de": "Eine Leistung ist für mich ein Erfolg, wenn ich im Vergleich zu anderen gut abschneide."
+    },
+    {
+        "question": 64,
+        "de": "In einer Gruppe eine Aufgabe zu übernehmen, kann mir Angst machen."
+    },
+    {
+        "question": 65,
+        "de": "Ich mag unkomplizierte Menschen am liebsten."
+    },
+    {
+        "question": 66,
+        "de": "Ich habe Freude daran, für die Anliegen anderer zu kämpfen."
+    },
+    {
+        "question": 67,
+        "de": "Ich vergleiche meine Leistung oft mit denen anderer."
+    },
+    {
+        "question": 68,
+        "de": "Auch wenn man mich darum bitten würde, hätte ich Hemmungen, eine Gruppe zu leiten."
+    },
+    {
+        "question": 69,
+        "de": "Ich mag nette Konversationen lieber als tiefgründige Gespräche."
+    },
+    {
+        "question": 70,
+        "de": "Ich habe die Fähigkeit, andere für eine gute Sache zu gewinnen."
+    },
+    {
+        "question": 71,
+        "de": "Besser sein zu wollen als andere ist für mich ein starker Ansporn."
+    },
+    {
+        "question": 72,
+        "de": "Die Verantwortung für das Glück anderer zu übernehmen würde mir Angst machen."
+    },
+    {
+        "question": 73,
+        "de": "Ich komme mit den Leuten ganz gut zurecht."
+    },
+    {
+        "question": 74,
+        "de": "In einer Gruppe sorge ich meist für den Zusammenhalt."
+    },
+    {
+        "question": 75,
+        "de": "Leistung heißt, besser zu sein als andere."
+    },
+    {
+        "question": 76,
+        "de": "Verantwortung zu übernehmen macht mir Angst."
+    },
+    {
+        "question": 77,
+        "de": "Um einen Menschen zu verstehen, schaue ich sowohl auf seine positiven als auch auf seine negativen Seiten."
+    },
+    {
+        "question": 78,
+        "de": "Ich lasse mich oft ganz spontan von meinen momentanen Einfällen leiten."
+    },
+    {
+        "question": 79,
+        "de": "Ich bemühe mich sehr, dass ich nur Dinge tue, die wirklich zu mir passen."
+    },
+    {
+        "question": 80,
+        "de": "Ich würde mir wünschen, dass mehr Menschen mehr Achtung vor mir hätten."
+    },
+    {
+        "question": 81,
+        "de": "Mir ist es wichtig, in allem, was ich tue, einen persönlichen Sinn zu finden."
+    },
+    {
+        "question": 82,
+        "de": "Mir sind unangenehme Seiten der Wahrheit genauso wichtig wie angenehme."
+    },
+    {
+        "question": 83,
+        "de": "Oft tue ich ganz spontan das, was mir in der jeweiligen Situation als stimmig erscheint."
+    },
+    {
+        "question": 84,
+        "de": "Ich denke oft darüber nach, was ich tun kann, um selbstbestimmt zu leben."
+    },
+    {
+        "question": 85,
+        "de": "Es macht mich völlig fertig, wenn andere mich für etwas verantwortlich machen wollen."
+    },
+    {
+        "question": 86,
+        "de": "Ich bin nur motivierbar, wenn ich ganz in einer Aufgabe aufgehen kann."
+    },
+    {
+        "question": 87,
+        "de": "Ich kann auch mit meinen Schwächen und Schattenseiten ganz gut leben."
+    },
+    {
+        "question": 88,
+        "de": "Ich kann ganz gut im Hier-und-Jetzt aufgehen und Ziele und Druckmomente ausblenden."
+    },
+    {
+        "question": 89,
+        "de": "Ich nehme mir öfters ganz bewusst Dinge vor, die mir das Gefühl von Selbstbestimmung geben."
+    },
+    {
+        "question": 90,
+        "de": "Ich lasse mich nicht gern auf Dinge ein, mit denen ich noch keine Erfahrung gemacht habe."
+    },
+    {
+        "question": 91,
+        "de": "Das Wichtigste im Leben ist, dass man sich nicht von seinem eigenen Weg abbringen lässt."
+    },
+    {
+        "question": 92,
+        "de": "Wenn mich etwas innerlich verunsichert, spüre ich die innere Sicherheit, dass ich mit der Zeit wieder mein Gleichgewicht finde."
+    },
+    {
+        "question": 93,
+        "de": "Ich lasse mich gern von spontanen Gefühlen leiten."
+    },
+    {
+        "question": 94,
+        "de": "Ich strenge mich immer wieder an, um Dinge zu tun, bei denen ich mich mit mir im Einklang fühle."
+    },
+    {
+        "question": 95,
+        "de": "Ich finde es schlimm, dass man so wenig Menschen wirklich vertrauen kann."
+    },
+    {
+        "question": 96,
+        "de": "Ich möchte, dass alles, was ich tue, mich in meiner Entwicklung weiterbringt."
+    },
+    {
+        "question": 97,
+        "de": "Ich denke öfters darüber nach, was ich ändern kann, um mehr hinter dem zu stehen, was ich tue."
+    },
+    {
+        "question": 98,
+        "de": "Ich lege großen Wert auf Unabhängigkeit."
+    },
+    {
+        "question": 99,
+        "de": "Ich entscheide lieber selbst als mir Rat von Anderen zu holen."
+    }
+]

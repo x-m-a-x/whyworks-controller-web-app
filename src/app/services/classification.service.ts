@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService, IAppConfig } from './app-config.service';
 import { ClassificationResult } from '../entities';
+import { BehaviorSubject } from 'rxjs';
 
 
 export interface IClassifyBodyData {
@@ -31,6 +32,7 @@ export interface IClassificationResponse {
 @Injectable({ providedIn: 'root' })
 export class ClassificationService {
     public config: IAppConfig;
+    public response: BehaviorSubject<ClassificationResult> = new BehaviorSubject(null); 
 
     constructor(
         public http: HttpClient,
@@ -42,7 +44,7 @@ export class ClassificationService {
             });
     }
 
-    public async classifyAllDimensions(picture: number, text: string, text2: string = null, text3: string = null): Promise<ClassificationResult> {
+    public async classifyAllDimensions(picture: number, text: string, text2: string = null, text3: string = null, omtId: number = -5): Promise<ClassificationResult> {
         let result = new ClassificationResult();
 
         result.answer1 = text;
@@ -73,6 +75,10 @@ export class ClassificationService {
                 result.dim2_3 = response.result.dim2_3;
                 result.dim2_4 = response.result.dim2_4;
                 result.dim2_5 = response.result.dim2_5;
+
+                result.omtItemId = omtId;
+                this.response.next(result);
+                return result;
             });
         }
         catch(error) {

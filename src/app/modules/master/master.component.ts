@@ -39,6 +39,7 @@ export class MasterComponent implements OnInit {
         this.eBookTextElementService.eBookTextElements.next(await this.eBookTextElementService.getFromWebApi());
         this.personalityTestService.personalityTests.next(await this.personalityTestService.getFromWebApi());
         this.additionalFieldDefinitionService.additionalFieldDefinitions.next(await this.additionalFieldDefinitionService.getFromWebApi());
+        
     }
 
     

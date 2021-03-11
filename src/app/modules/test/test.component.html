@@ -1,0 +1,308 @@
+<div class="container-test">
+    <mat-toolbar color="white">
+        <mat-toolbar-row>
+            <span>
+                <h3>Test - {{license?.LicenseKey}} - {{license?.Info}}</h3>
+            </span>
+            <span style="flex: 1 1 auto;"></span>
+            <mat-icon style="padding: 0 14px; cursor: pointer;" (click)="backClicked()" matTooltip="Zurück">
+                arrow_back</mat-icon>
+            <!-- <mat-icon style="padding: 0 14px; cursor: pointer;" (click)="addContentArea()"
+                matTooltip="Neuer Textbereich">
+                add</mat-icon> -->
+
+
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+
+    <div class="content-container">
+        <mat-accordion multi>
+
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>OMT</mat-panel-title>
+
+                </mat-expansion-panel-header>
+                <mat-panel-description>
+
+                    <mat-accordion multi style="width: 100%;" *ngIf="omtItems && omtItems.length > 0">
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header class="test-tem-panel">
+                                <mat-panel-title>Gesamt</mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-panel-description>
+                                <div class="omt-overall" [formGroup]="omtClassification">
+                                    <mat-toolbar color="white">
+                                        <span style="flex: 1 1 auto;"></span>
+                                        <button mat-icon-button color="primary" *ngIf="!omtEdit">
+                                            <mat-icon style="cursor: pointer;" (click)="editOMT()"
+                                                matTooltip="Ergebnis bearbeiten">
+                                                edit</mat-icon>
+                                        </button>
+                                        <button mat-icon-button color="primary" *ngIf="omtEdit">
+                                            <mat-icon style="cursor: pointer;" (click)="calculateOMT()"
+                                                matTooltip="Ergebnis berechnen">
+                                                flash_on</mat-icon>
+                                        </button>
+
+                                        <button mat-icon-button color="primary" *ngIf="omtEdit">
+                                            <mat-icon style="cursor: pointer;" (click)="saveChangesOMT()"
+                                                matTooltip="Speichern">
+                                                save</mat-icon>
+                                        </button>
+
+                                        <button mat-icon-button color="primary" *ngIf="omtEdit">
+                                            <mat-icon style="cursor: pointer;" (click)="cancelChanges()"
+                                                matTooltip="Abbrechen">
+                                                undo</mat-icon>
+                                        </button>
+
+                                    </mat-toolbar>
+
+                                    <div *ngIf="!isMobile">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <mat-form-field appearance="fill" class="omt_score_input">
+                                                        <mat-label>Macht</mat-label>
+                                                        <input matInput type="number" [formControl]="mightControl">
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="fill" class="omt_score_input">
+                                                        <mat-label>Beziehung</mat-label>
+                                                        <input matInput type="number" [formControl]="relationControl">
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="fill" class="omt_score_input">
+                                                        <mat-label>Freiheit</mat-label>
+                                                        <input matInput type="number" [formControl]="freedomControl">
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="fill" class="omt_score_input">
+                                                        <mat-label>Leistung</mat-label>
+                                                        <input matInput type="number"
+                                                            [formControl]="performanceControl">
+                                                    </mat-form-field>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <mat-form-field appearance="fill" class="omt_score_input">
+                                                        <mat-label>Positiv</mat-label>
+                                                        <input matInput type="number" [formControl]="positiveControl">
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="fill" class="omt_score_input">
+                                                        <mat-label>Negativ</mat-label>
+                                                        <input matInput type="number" [formControl]="negativeControl">
+                                                    </mat-form-field>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <mat-form-field appearance="fill" class="omt_score_input">
+                                                        <mat-label>1</mat-label>
+                                                        <input matInput type="number" [formControl]="oneControl">
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="fill" class="omt_score_input">
+                                                        <mat-label>2</mat-label>
+                                                        <input matInput type="number" [formControl]="twoControl">
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="fill" class="omt_score_input">
+                                                        <mat-label>3</mat-label>
+                                                        <input matInput type="number" [formControl]="threeControl">
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="fill" class="omt_score_input">
+                                                        <mat-label>4</mat-label>
+                                                        <input matInput type="number" [formControl]="fourControl">
+                                                    </mat-form-field>
+                                                </td>
+                                                <td>
+                                                    <mat-form-field appearance="fill" class="omt_score_input">
+                                                        <mat-label>5</mat-label>
+                                                        <input matInput type="number" [formControl]="fiveControl">
+                                                    </mat-form-field>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div *ngIf="isMobile">
+                                        <mat-form-field appearance="fill" class="omt_score_input">
+                                            <mat-label>Macht</mat-label>
+                                            <input matInput type="number" [formControl]="mightControl">
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="omt_score_input">
+                                            <mat-label>Beziehung</mat-label>
+                                            <input matInput type="number" [formControl]="relationControl">
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="omt_score_input">
+                                            <mat-label>Freiheit</mat-label>
+                                            <input matInput type="number" [formControl]="freedomControl">
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="omt_score_input">
+                                            <mat-label>Leistung</mat-label>
+                                            <input matInput type="number" [formControl]="performanceControl">
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="omt_score_input">
+                                            <mat-label>Positiv</mat-label>
+                                            <input matInput type="number" [formControl]="positiveControl">
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="omt_score_input">
+                                            <mat-label>Negativ</mat-label>
+                                            <input matInput type="number" [formControl]="negativeControl">
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="omt_score_input">
+                                            <mat-label>1</mat-label>
+                                            <input matInput type="number" [formControl]="oneControl">
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="omt_score_input">
+                                            <mat-label>2</mat-label>
+                                            <input matInput type="number" [formControl]="twoControl">
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="omt_score_input">
+                                            <mat-label>3</mat-label>
+                                            <input matInput type="number" [formControl]="threeControl">
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="omt_score_input">
+                                            <mat-label>4</mat-label>
+                                            <input matInput type="number" [formControl]="fourControl">
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="omt_score_input">
+                                            <mat-label>5</mat-label>
+                                            <input matInput type="number" [formControl]="fiveControl">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </mat-panel-description>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel *ngFor="let omt of omtItems">
+
+
+                            <mat-expansion-panel-header class="test-tem-panel">
+                                <mat-panel-title>Bild {{omt.Image}}</mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-panel-description>
+                                <omt-item [omt]="omt" style="width: 100%;"></omt-item>
+
+                            </mat-panel-description>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </mat-panel-description>
+            </mat-expansion-panel>
+
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>MUT</mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-panel-description>
+                    <mat-accordion multi style="width: 100%;" *ngIf="mutItems && mutItems.length > 0">
+                        <mat-expansion-panel>
+
+                            <mat-expansion-panel-header class="test-tem-panel">
+                                <mat-panel-title>Gesamt</mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-panel-description>
+                                <div class="mut-overall" [formGroup]="mutClassification">
+                                    <mat-toolbar color="white">
+                                        <span style="flex: 1 1 auto;"></span>
+                                        <button mat-icon-button color="primary" *ngIf="!mutEdit">
+                                            <mat-icon style="cursor: pointer;" (click)="editMUT()"
+                                                matTooltip="Ergebnis bearbeiten">
+                                                edit</mat-icon>
+                                        </button>
+                                        
+                                        <button mat-icon-button color="primary" *ngIf="mutEdit">
+                                            <mat-icon style="cursor: pointer;" (click)="saveChangesMUT()"
+                                                matTooltip="Speichern">
+                                                save</mat-icon>
+                                        </button>
+
+                                        <button mat-icon-button color="primary" *ngIf="mutEdit">
+                                            <mat-icon style="cursor: pointer;" (click)="cancelChangesMUT()"
+                                                matTooltip="Abbrechen">
+                                                undo</mat-icon>
+                                        </button>
+
+                                    </mat-toolbar>
+
+                                    <mat-form-field appearance="fill" class="mut_score_input">
+                                        <mat-label>Macht</mat-label>
+                                        <input matInput type="number" [formControl]="mutMightControl">
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" class="mut_score_input">
+                                        <mat-label>Beziehung</mat-label>
+                                        <input matInput type="number" [formControl]="mutRelationControl">
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" class="mut_score_input">
+                                        <mat-label>Freiheit</mat-label>
+                                        <input matInput type="number" [formControl]="mutFreedomControl">
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="fill" class="mut_score_input">
+                                        <mat-label>Leistung</mat-label>
+                                        <input matInput type="number" [formControl]="mutPerformanceControl">
+                                    </mat-form-field>
+                                </div>
+                            </mat-panel-description>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel *ngFor="let mut of mutItems">
+
+
+                            <mat-expansion-panel-header class="test-tem-panel">
+                                <mat-panel-title>{{mut.Question}}</mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-panel-description>
+                                <table>
+                                    <tr>
+                                        <td colspan="2">
+                                            {{getMUTQuestion(mut.Question)}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="min-width: 20px;"></td>
+                                        <td>
+                                            <b>{{getMUTAnswer(mut.Answer)}}</b>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </mat-panel-description>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+
+                </mat-panel-description>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+</div>

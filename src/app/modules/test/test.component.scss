@@ -1,0 +1,67 @@
+.container-test {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.mat-toolbar {
+    background: transparent !important;
+    padding-left: 40px;
+}
+
+.content-container {    
+    width:100%;
+    overflow: auto;
+    height: 78vh;
+}
+
+.test-tem-panel {
+    width: 100%;
+}
+
+.omt-summary {
+    width: 100%;
+    min-width: 90vw;
+}
+
+.omt-overall {
+    width: 100%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 20px;
+}
+
+.omt_score_input {
+    margin-left: 20px;
+}
+
+.mut_score_input {
+    margin-left: 20px;
+}
+
+.mat-toolbar {
+    background: transparent !important;
+    padding-left: 40px;
+}
+
+.mut-details {
+    width: 90vw;
+}
+
+.mut-overall {
+    width: 100%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 20px;
+}
+

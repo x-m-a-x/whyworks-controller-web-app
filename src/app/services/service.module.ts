@@ -11,6 +11,14 @@ import { PersonalityTestService } from './personality-test.service';
 import { AdditionalFieldDefinitionService } from './additional-field-definition.service';
 import { AdditionalFieldValueService } from './additional-field-value.service';
 import { AdditionalValidValueService } from './additional-valid-value.service';
+import { MUTSurveyClassificationService } from './mut-survey-classification.service';
+import { MUTSurveyItemService } from './mut-survey-item.service';
+import { MUTSurveyService } from './mut-survey.service';
+import { OMTClassificationService } from './omt-classification.service';
+import { OMTSurveyClassificationService } from './omt-survey-classification.service';
+import { OMTSurveyItemService } from './omt-survey-item.service';
+import { OMTSurveyService } from './omt-survey.service';
+import { MUTQuestionService } from './mut-question.service';
 
 
 @NgModule({
@@ -27,7 +35,15 @@ import { AdditionalValidValueService } from './additional-valid-value.service';
         PersonalityTestService,
         AdditionalFieldDefinitionService,
         AdditionalFieldValueService,
-        AdditionalValidValueService
+        AdditionalValidValueService,
+        MUTSurveyClassificationService,
+        MUTSurveyItemService,
+        MUTSurveyService,
+        OMTClassificationService,
+        OMTSurveyClassificationService,
+        OMTSurveyItemService,
+        OMTSurveyService,
+        MUTQuestionService
     ]
 })
 export class ServiceModule { }

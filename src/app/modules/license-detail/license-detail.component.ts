@@ -54,6 +54,11 @@ export class LicenseDetailComponent implements OnInit, OnDestroy {
             if (this.license?.TestId) {
                 this.license.Test = this.personalityTestService.personalityTests.getValue().find(pt => pt.Id == this.license.TestId);                
             }
+            else if (this.license) {
+                this.license.Test = this.personalityTestService.personalityTests.getValue()?.find(pt => pt.LicenseId == this.license.Id);
+                this.license.TestId = this.license.Test?.Id;
+            }
+            
         });
 
         this.addFieldDefsSubscription = this.additionalFieldDefinitionService.additionalFieldDefinitions.subscribe((addFieldDefs) => {
@@ -101,5 +106,9 @@ export class LicenseDetailComponent implements OnInit, OnDestroy {
 
     public addFields() {
         this.router.navigateByUrl("AdditionalFields/" + this.license.Id);
+    }
+
+    public gotToTest() {
+        this.router.navigateByUrl('Test/' + this.license.TestId);
     }
 }

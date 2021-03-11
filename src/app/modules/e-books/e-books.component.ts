@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
-import { TestType, EBookContentArea, EBookTextElement, Unconscious, Congruence, SelfAssessment, Energization } from '../../entities';
+import { TestType, EBookContentArea, EBookTextElement, Unconscious, Congruence, SelfAssessment, Energization, SpecialCase } from '../../entities';
 import { EBookContentAreaService, EBookTextElementService } from '../../services';
 import { Subscription, fromEventPattern } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -262,5 +262,32 @@ export class EBooksComponent implements OnInit, OnDestroy {
             return "NE >= PE und NE > 0";
         }
 
+    }
+
+    public translateSpecialCase(value: SpecialCase): string {
+        if (value == SpecialCase.Gemeinsames_Leisten) {
+            return "Gemeinsames Leisten";
+        }
+        else if (value == SpecialCase.Startup) {
+            return "Startup";
+        }
+        else if (value == SpecialCase.Pro_Soziale_Macht) {
+            return "Pro Soziale Macht";
+        }
+        else if (value == SpecialCase.Beziehungsfokus) {
+            return "Beziehungsfokus";
+        }
+        else if (value == SpecialCase.Freies_Leisten) {
+            return "Freies Leisten";
+        }
+        else if (value == SpecialCase.Erfahrungsorientierung) {
+            return "Erfahrungsorientierung";
+        }
+        else if (value == SpecialCase.Wirkungsorientierung) {
+            return "Wirkungsorientierung";
+        }
+        else if (value == SpecialCase.Sozialantriebe) {
+            return "Sozialantriebe";
+        }
     }
 }
