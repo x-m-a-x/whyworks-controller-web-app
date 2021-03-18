@@ -108,7 +108,11 @@ export class LicenseDetailComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl("AdditionalFields/" + this.license.Id);
     }
 
-    public gotToTest() {
+    public goToTest() {
         this.router.navigateByUrl('Test/' + this.license.TestId);
+    }
+
+    public goToEBook() {
+        this.router.navigateByUrl('EBook/' + this.license.TestId);        
     }
 }

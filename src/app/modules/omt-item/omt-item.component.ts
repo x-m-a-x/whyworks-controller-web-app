@@ -54,7 +54,7 @@ export class OmtItemComponent implements OnInit, OnDestroy {
 
     public async ngOnInit(): Promise<void> {
         this.omtClassification = this.omtClassificationService.omtClassifications.getValue()?.find(c => c.OMTSurveyItemId == this.omt.Id);
-
+        
 
         this.mightControl.setValue(this.omtClassification?.DimOneM);
         this.relationControl.setValue(this.omtClassification?.DimOneA);

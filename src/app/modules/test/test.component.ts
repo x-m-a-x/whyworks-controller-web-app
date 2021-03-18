@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { PersonalityTest, License, MUTSurvey, OMTSurvey, OMTSurveyItem, OMTClassification, OMTSurveyClassification, MUTSurveyItem, MUTSurveyClassification } from '../../entities';
+import { PersonalityTest, License, MUTSurvey, OMTSurvey, OMTSurveyItem, OMTClassification, OMTSurveyClassification, MUTSurveyItem, MUTSurveyClassification, Dimension1 } from '../../entities';
 import {
     PersonalityTestService, LicenseService, OMTSurveyService, OMTSurveyItemService, OMTClassificationService,
     OMTSurveyClassificationService, MUTQuestionService, IMUTQuestion, MUTSurveyItemService,
@@ -183,7 +183,8 @@ export class TestComponent implements OnInit {
         });
 
 
-
+        // // test
+        // this.personalityTestService.getUnconsciousLevel(this.personalityTest?.Id, Dimension1.M);
     }
 
     public getMUTQuestion(index: number): string {

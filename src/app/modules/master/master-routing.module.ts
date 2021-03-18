@@ -9,6 +9,7 @@ import { AccountComponent } from '../account';
 import { ClassifierComponent } from '../classifier';
 import { AdditionalFieldsComponent } from '../additional-fields';
 import { TestComponent } from '../test';
+import { EBookComponent } from '../e-book';
 
 
 const masterRoutes: Routes = [
@@ -45,6 +46,10 @@ const masterRoutes: Routes = [
             {
                 path: "Test/:testId",
                 loadChildren: "../test/test.module#TestModule"
+            },
+            {
+                path: "EBook/:testId",
+                loadChildren: "../e-book/e-book.module#EBookModule"
             }
         ],
         path: "",

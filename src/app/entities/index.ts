@@ -18,3 +18,5 @@ export * from './omt-survey';
 export * from './omt-survey-item';
 export * from './omt-survey-classification';
 export * from './omt-classification';
+export * from './special-case-class';
+export * from './energization-class';

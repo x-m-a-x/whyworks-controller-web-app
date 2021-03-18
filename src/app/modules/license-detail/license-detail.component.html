@@ -89,7 +89,9 @@
                 <mat-toolbar-row>
                     <span></span>
                     <span style="flex: 1 1 auto;"></span>
-                    <button mat-flat-button color="primary" (click)="gotToTest()" [disabled]="!license?.TestId">Test</button>
+                    <button mat-flat-button color="primary" (click)="goToEBook()" [disabled]="!license?.TestId">EBook</button>
+                    <span style="width: 10px;"></span>
+                    <button mat-flat-button color="primary" (click)="goToTest()" [disabled]="!license?.TestId">Test</button>
                     <span style="width: 10px;"></span>
                     <button mat-flat-button color="primary" (click)="backClicked()">Zurück</button>
                 </mat-toolbar-row>

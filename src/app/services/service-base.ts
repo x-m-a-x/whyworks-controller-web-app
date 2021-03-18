@@ -124,7 +124,7 @@ export class ServiceBase<T extends CoreEntity> {
         await this.http.delete(this.config.apiEndpoint + this.serviceConfig.entityName + "/" + id, await this.getRequestCredentials()).toPromise();
     }
 
-    private async getRequestCredentials(): Promise<any> {
+    public async getRequestCredentials(): Promise<any> {
         let sCurrentUser = localStorage.getItem("WW_currentUser");
         let jCurrentUser = await JSON.parse(sCurrentUser);
 
