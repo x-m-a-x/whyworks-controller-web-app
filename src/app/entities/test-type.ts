@@ -5,5 +5,8 @@ export enum TestType {
     Other,
     StudentEN,
     ManagerEN,
-    OtherEN
+    OtherEN,
+    StudentGendered,
+    ManagerGendered,
+    OtherGendered
 }

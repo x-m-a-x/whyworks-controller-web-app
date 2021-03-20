@@ -124,13 +124,13 @@ export class ServiceBase<T extends CoreEntity> {
         await this.http.delete(this.config.apiEndpoint + this.serviceConfig.entityName + "/" + id, await this.getRequestCredentials()).toPromise();
     }
 
-    public async getRequestCredentials(): Promise<any> {
+    public async getRequestCredentials(contentType: string = 'application/json'): Promise<any> {
         let sCurrentUser = localStorage.getItem("WW_currentUser");
         let jCurrentUser = await JSON.parse(sCurrentUser);
 
         const httpOptions = {
             headers: new HttpHeaders({
-                'Content-Type': 'application/json',
+                'Content-Type': contentType,
                 'Authorization': 'Basic ' + jCurrentUser?.Authdata
             })
         };

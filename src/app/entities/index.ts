@@ -20,3 +20,4 @@ export * from './omt-survey-classification';
 export * from './omt-classification';
 export * from './special-case-class';
 export * from './energization-class';
+export * from './quote-class';

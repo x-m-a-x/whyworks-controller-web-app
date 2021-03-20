@@ -23,6 +23,7 @@
     "@angular/router": "~9.0.7",
     "@material/button": "^7.0.0",
     "@material/form-field": "^7.0.0",
+    "jspdf": "2.3.1",
     "material-icons": "^0.3.1",
     "ngx-device-detector": "^1.4.5",
     "rxjs": "~6.5.4",

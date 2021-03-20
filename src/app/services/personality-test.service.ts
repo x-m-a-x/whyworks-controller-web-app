@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
-import { Congruence, Dimension1, PersonalityTest, SelfAssessment, EnergizationClass, SpecialCaseClass, Unconscious } from '../entities';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Congruence, Dimension1, PersonalityTest, SelfAssessment, EnergizationClass, SpecialCaseClass, Unconscious, QuoteClass } from '../entities';
 import { ServiceBase } from "./service-base";
 import { AppConfigService } from './app-config.service';
 
@@ -87,5 +87,20 @@ export class PersonalityTestService extends ServiceBase<PersonalityTest>{
         }
     }
 
-    
+    public async getQuote(testId: number, dim: Dimension1, sentiment: string): Promise<QuoteClass> {
+        try {
+            
+            let response = await this.http.get(this.config.apiEndpoint + this.serviceConfig.entityName + "/GetQuote/" + testId + "/" + dim + "/" + sentiment,
+               (await this.getRequestCredentials())).toPromise() as unknown as QuoteClass;               
+                        
+            
+            return QuoteClass.createFromApiItem(response);
+        }
+        catch (error) {
+            console.log(error);
+            return null;
+            
+        }
+
+    }
 }

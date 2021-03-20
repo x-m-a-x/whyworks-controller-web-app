@@ -2,11 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonalityTestService, EBookContentAreaService, EBookTextElementService } from '../../services';
 import { EBookContentArea, EBookTextElement, PersonalityTest, TestType, SpecialCaseClass, Congruence, Dimension1, SpecialCase, EnergizationClass, Energization } from '../../entities';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { DeviceDetectorService } from 'ngx-device-detector';
-import { Location } from '@angular/common';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from "rxjs";
+// import { jsPDF } from 'jspdf';
+declare var jsPDF: any;
 
 @Component({
     selector: "e-book",
@@ -41,6 +38,24 @@ export class EBookComponent implements OnInit {
         });
     }
 
+    public async exportPDF(): Promise<void> {
+        const doc = new jsPDF();
+
+        const margins = {
+            top: 80,
+            bottom: 60,
+            left: 40,
+            width: 522
+        };
+
+        const content = this.eBook.nativeElement;
+
+        doc.fromHTML(content.innerHTML, margins.left, margins.top, {}, function () {
+            doc.save("export.pdf");
+        }, margins);
+
+    }
+
     public async setEBookContent(): Promise<void> {
         this.eBookContentAreas = this.eBookContentAreaService.eBookContentAreas.getValue()?.filter(ca => ca.TestType == this.personalityTest?.Type);
 
@@ -61,7 +76,7 @@ export class EBookComponent implements OnInit {
 
         let eBookContent = ``;
         for (let i = 0; i < this.eBookContentAreas.length; i++) {
-            eBookContent += `<h1>` + this.eBookContentAreas[i].Name + `</h1></br>`;
+            eBookContent += `</br></br></br>`;
             let textElements = this.eBookTextElementService.eBookTextElements.getValue()?.filter(t => t.EBookContentAreaId == this.eBookContentAreas[i].Id);
 
             for (let j = 0; j < textElements.length; j++) {
@@ -94,15 +109,52 @@ export class EBookComponent implements OnInit {
                 }
 
                 eBookContent += textElements[j].Text + `</br></br>`;
-                
+
             }
-            
+
             eBookContent += `</br>`;
 
 
 
         }
 
-        this.eBookContent += eBookContent; 
+        this.eBookContent += eBookContent;
+
+        await this.fillQuotes();
+        await this.setBulletPoints();
+        await this.setFormats();
+    }
+
+    private async fillQuotes(): Promise<void> {
+
+        while (true) {
+            let cite = this.eBookContent.match(/<cite(.*)>/);
+            if (!cite) break;
+            let dim = cite[1]?.trim().split(" ")[1]
+            let dimNumber = 0;
+            if (dim.toLowerCase() == "b") dimNumber = Dimension1.A;
+            if (dim.toLowerCase() == "m") dimNumber = Dimension1.M;
+            if (dim.toLowerCase() == "f") dimNumber = Dimension1.F;
+            if (dim.toLowerCase() == "l") dimNumber = Dimension1.L;
+
+            let sentiment = cite[0]?.trim().split(" ")[1]
+
+            let quote = await this.personalityTestService.getQuote(this.personalityTest.Id, dimNumber, sentiment);
+            let textInsert = "<br/><br/><i>\"" + quote.Text.trim() + "\"</i><br/><br/>";
+
+            this.eBookContent = this.eBookContent.replace(cite[0], textInsert);
+
+        }
+    }
+
+    private async setBulletPoints(): Promise<void> {
+
+        this.eBookContent = this.eBookContent.replace("<star>", "<ul><li>");
+        this.eBookContent = this.eBookContent.replace("</star>", "</li></ul>");
+    }
+
+    private async setFormats(): Promise<void> {
+        this.eBookContent = this.eBookContent.replace("\\n\\n", "<br/>");
+
     }
 }

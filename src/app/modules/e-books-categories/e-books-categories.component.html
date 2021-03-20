@@ -147,5 +147,60 @@
                   </mat-card-content>
             </mat-card>
         </mat-grid-tile>
+
+
+        <mat-grid-tile class="grid_tile">
+            <mat-card class="ebook_category_card" matRipple (click)="onEBookCategoryClicked('StudentGendered')">
+                <mat-card-header>
+                    <mat-card-title>
+                        <b>Studenten (Gendered)</b>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content >
+                    <p class="category_desc_mobile">
+                        Text-Bereiche: {{getContentAreasPerType('StudentGendered')}}
+                    </p>
+                    <p class="category_desc_mobile">
+                        Text-Bausteine: {{getTextElementsPerType('StudentGendered')}}
+                    </p>
+                  </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile class="grid_tile">
+            <mat-card class="ebook_category_card" matRipple (click)="onEBookCategoryClicked('ManagerGendered')">
+                <mat-card-header>
+                    <mat-card-title>
+                        <b>Führungskräfte (Gendered)</b>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content >
+                    <p class="category_desc_mobile">
+                        Text-Bereiche: {{getContentAreasPerType('ManagerGendered')}}
+                    </p>
+                    <p class="category_desc_mobile">
+                        Text-Bausteine: {{getTextElementsPerType('ManagerGendered')}}
+                    </p>
+                  </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile class="grid_tile">
+            <mat-card class="ebook_category_card" matRipple (click)="onEBookCategoryClicked('OtherGendered')">
+                <mat-card-header>
+                    <mat-card-title>
+                        <b>Andere (Gendered)</b>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content >
+                    <p class="category_desc_mobile">
+                        Text-Bereiche: {{getContentAreasPerType('OtherGendered')}}
+                    </p>
+                    <p class="category_desc_mobile">
+                        Text-Bausteine: {{getTextElementsPerType('OtherGendered')}}
+                    </p>
+                  </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
     </mat-grid-list>
 </div>
