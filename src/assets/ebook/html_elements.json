@@ -1,0 +1,5 @@
+{
+    "header": "",
+    "css": ".main { font-family: Comfortea, sans-serif; font-size: 14px; font-weight: 200; font-stretch: 100%; line-height: 20px; } h1 { font-family: arial; } .image { width: 100%; justify-content: center; margin-bottom: 50px; margin-bottom: 50px;} #main_image { margin-bottom: 200px;}",
+    "js": ""
+}

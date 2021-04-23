@@ -19,3 +19,4 @@ export * from './omt-survey-classification.service';
 export * from './omt-survey-item.service';
 export * from './omt-survey.service';
 export * from './mut-question.service';
+export * from './pdf-convert.service';

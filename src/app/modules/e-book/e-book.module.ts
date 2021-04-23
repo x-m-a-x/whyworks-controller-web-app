@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+
 @NgModule({
     declarations: [
         EBookComponent
@@ -28,7 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatToolbarModule,
         MatSelectModule,
         MatSnackBarModule,
-        MatTooltipModule,
+        MatTooltipModule,        
     ],
     providers: [
         

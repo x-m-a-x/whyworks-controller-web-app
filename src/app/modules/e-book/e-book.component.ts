@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ActivatedRoute, Router } from '@angular/router';
-import { PersonalityTestService, EBookContentAreaService, EBookTextElementService } from '../../services';
-import { EBookContentArea, EBookTextElement, PersonalityTest, TestType, SpecialCaseClass, Congruence, Dimension1, SpecialCase, EnergizationClass, Energization } from '../../entities';
-// import { jsPDF } from 'jspdf';
-declare var jsPDF: any;
+import { PersonalityTestService, EBookContentAreaService, EBookTextElementService, PdfConvertService } from '../../services';
+import { EBookContentArea, PersonalityTest, SpecialCaseClass, Congruence, Dimension1, SpecialCase, Energization } from '../../entities';
 
 @Component({
     selector: "e-book",
@@ -18,6 +16,8 @@ export class EBookComponent implements OnInit {
     public congruence: Congruence;
     public specialCaseClass: SpecialCaseClass;
 
+
+
     @ViewChild('eBook', { static: false }) eBook: ElementRef;
 
     constructor(
@@ -25,7 +25,9 @@ export class EBookComponent implements OnInit {
         private personalityTestService: PersonalityTestService,
         private eBookContentAreaService: EBookContentAreaService,
         private eBookTextElementService: EBookTextElementService,
-    ) { }
+        private pdfConvertService: PdfConvertService
+    ) {
+    }
 
     public async ngOnInit() {
         this.route.params.subscribe(async (params) => {
@@ -39,24 +41,20 @@ export class EBookComponent implements OnInit {
     }
 
     public async exportPDF(): Promise<void> {
-        const doc = new jsPDF();
 
-        const margins = {
-            top: 80,
-            bottom: 60,
-            left: 40,
-            width: 522
-        };
 
-        const content = this.eBook.nativeElement;
+        let content = this.eBook.nativeElement;
+        // console.log(content.innerHTML);
 
-        doc.fromHTML(content.innerHTML, margins.left, margins.top, {}, function () {
-            doc.save("export.pdf");
-        }, margins);
-
+        let pdfResponse = await this.pdfConvertService.htmlToPdf(content.innerHTML);
+        console.log(pdfResponse);
+        window.open(pdfResponse?.image, "_blank");
     }
 
     public async setEBookContent(): Promise<void> {
+
+
+
         this.eBookContentAreas = this.eBookContentAreaService.eBookContentAreas.getValue()?.filter(ca => ca.TestType == this.personalityTest?.Type);
 
         if (!this.eBookContentAreas) {
@@ -74,9 +72,11 @@ export class EBookComponent implements OnInit {
         this.congruence = await this.personalityTestService.getCongruenceLevel(this.personalityTest?.Id);
         this.specialCaseClass = await this.personalityTestService.getSpecialCases(this.personalityTest?.Id);
 
-        let eBookContent = ``;
+
+        let eBookContent = `<div class="main">`;
+        
         for (let i = 0; i < this.eBookContentAreas.length; i++) {
-            eBookContent += `</br></br></br>`;
+
             let textElements = this.eBookTextElementService.eBookTextElements.getValue()?.filter(t => t.EBookContentAreaId == this.eBookContentAreas[i].Id);
 
             for (let j = 0; j < textElements.length; j++) {
@@ -118,12 +118,16 @@ export class EBookComponent implements OnInit {
 
         }
 
+        eBookContent += `</div>`;
         this.eBookContent += eBookContent;
 
         await this.fillQuotes();
         await this.setBulletPoints();
         await this.setFormats();
+
     }
+
+
 
     private async fillQuotes(): Promise<void> {
 
@@ -140,7 +144,7 @@ export class EBookComponent implements OnInit {
             let sentiment = cite[0]?.trim().split(" ")[1]
 
             let quote = await this.personalityTestService.getQuote(this.personalityTest.Id, dimNumber, sentiment);
-            let textInsert = "<br/><br/><i>\"" + quote.Text.trim() + "\"</i><br/><br/>";
+            let textInsert = `<br/><br/><div style="border: 1px solid green;"><i>\"` + quote.Text.trim() + `\"</i></div><br/><br/>`;
 
             this.eBookContent = this.eBookContent.replace(cite[0], textInsert);
 

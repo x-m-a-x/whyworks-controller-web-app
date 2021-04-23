@@ -6,6 +6,8 @@ export interface IAppConfig {
     apiEndpoint: string;
     lengthLicenseKey: number;
     classificationApiEndpoint: string;
+    pdfConvertUrl: string;
+    restPackApiKey: string;
 }
 
 @Injectable()

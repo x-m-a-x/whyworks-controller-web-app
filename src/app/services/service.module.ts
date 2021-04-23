@@ -19,6 +19,7 @@ import { OMTSurveyClassificationService } from './omt-survey-classification.serv
 import { OMTSurveyItemService } from './omt-survey-item.service';
 import { OMTSurveyService } from './omt-survey.service';
 import { MUTQuestionService } from './mut-question.service';
+import { PdfConvertService } from './pdf-convert.service';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { MUTQuestionService } from './mut-question.service';
         OMTSurveyClassificationService,
         OMTSurveyItemService,
         OMTSurveyService,
-        MUTQuestionService
+        MUTQuestionService,
+        PdfConvertService
     ]
 })
 export class ServiceModule { }

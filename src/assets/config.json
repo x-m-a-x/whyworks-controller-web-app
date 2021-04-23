@@ -2,5 +2,7 @@
     "version": "1.0.0.0",
     "apiEndpoint": "http://whyworks-api.ddns.net/api/",
     "lengthLicenseKey": 6,
-    "classificationApiEndpoint": "http://whyworks-classifier.ddns.net/"
+    "classificationApiEndpoint": "http://whyworks-classifier.ddns.net/",
+    "pdfConvertUrl": "https://restpack.io/api/html2pdf/v7/convert",
+    "restPackApiKey": "wICunxYRk5GFdjXSB6ScYPqGoQ8ilHhcxOSFBMdueg5Y8wFH"
 }

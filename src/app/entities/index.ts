@@ -21,3 +21,5 @@ export * from './omt-classification';
 export * from './special-case-class';
 export * from './energization-class';
 export * from './quote-class';
+export * from './restpack-body';
+export * from './restpack-response';
