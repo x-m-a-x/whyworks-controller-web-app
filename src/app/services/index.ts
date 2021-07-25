@@ -20,3 +20,6 @@ export * from './omt-survey-item.service';
 export * from './omt-survey.service';
 export * from './mut-question.service';
 export * from './pdf-convert.service';
+export * from './mut-param.service';
+export * from './omt-t-params.service';
+export * from './mut-mapping.service';

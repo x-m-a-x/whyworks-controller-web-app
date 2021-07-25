@@ -20,6 +20,9 @@ import { OMTSurveyItemService } from './omt-survey-item.service';
 import { OMTSurveyService } from './omt-survey.service';
 import { MUTQuestionService } from './mut-question.service';
 import { PdfConvertService } from './pdf-convert.service';
+import { MUTParametereService } from './mut-param.service';
+import { OMTTParameterService } from './omt-t-params.service';
+import { MUTMappingService } from './mut-mapping.service';
 
 
 @NgModule({
@@ -45,7 +48,10 @@ import { PdfConvertService } from './pdf-convert.service';
         OMTSurveyItemService,
         OMTSurveyService,
         MUTQuestionService,
-        PdfConvertService
+        PdfConvertService,
+        MUTParametereService,
+        OMTTParameterService,
+        MUTMappingService
     ]
 })
 export class ServiceModule { }

@@ -16,7 +16,9 @@ export class OmtItemComponent implements OnInit, OnDestroy {
     public classificationResult: ClassificationResult;
     public omtClassification: OMTClassification;
     public edit: boolean = false;
+    
     private omtClassificationSubscription: Subscription;
+    private omtClassificationResponseSubscription: Subscription;
 
     public image_classification: FormGroup;
     public mightControl = new FormControl();
@@ -53,6 +55,27 @@ export class OmtItemComponent implements OnInit, OnDestroy {
     }
 
     public async ngOnInit(): Promise<void> {
+
+        this.omtClassificationSubscription = this.omtClassificationService.omtClassifications.subscribe((omtClassifications) => {
+            this.omtClassification = omtClassifications?.find(c => c.OMTSurveyItemId == this.omt.Id);
+            
+
+            this.mightControl.setValue(this.omtClassification?.DimOneM);
+            this.relationControl.setValue(this.omtClassification?.DimOneA);
+            this.freedomControl.setValue(this.omtClassification?.DimOneF);
+            this.performanceControl.setValue(this.omtClassification?.DimOneL);
+
+            this.positiveControl.setValue(this.omtClassification?.DimTwoPos);
+            this.negativeControl.setValue(this.omtClassification?.DimTwoNeg);
+
+            this.oneControl.setValue(this.omtClassification?.DimTwo1);
+            this.twoControl.setValue(this.omtClassification?.DimTwo2);
+            this.threeControl.setValue(this.omtClassification?.DimTwo3);
+            this.fourControl.setValue(this.omtClassification?.DimTwo4);
+            this.fiveControl.setValue(this.omtClassification?.DimTwo5);
+
+        })
+        
         this.omtClassification = this.omtClassificationService.omtClassifications.getValue()?.find(c => c.OMTSurveyItemId == this.omt.Id);
         
 
@@ -73,7 +96,8 @@ export class OmtItemComponent implements OnInit, OnDestroy {
 
         this.image_classification.disable();
 
-        this.omtClassificationSubscription = this.classificationService.response.subscribe((response) => {
+        this.omtClassificationResponseSubscription = this.classificationService.response.subscribe((response) => {
+
             if (response?.omtItemId == this.omt?.Id) {
                 this.mightControl.setValue(response.dim1_M);
                 this.relationControl.setValue(response.dim1_A);
@@ -93,6 +117,7 @@ export class OmtItemComponent implements OnInit, OnDestroy {
     }
 
     public async ngOnDestroy(): Promise<void> {
+        this.omtClassificationResponseSubscription.unsubscribe();
         this.omtClassificationSubscription.unsubscribe();
     }
 

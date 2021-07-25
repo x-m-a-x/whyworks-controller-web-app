@@ -1,4 +1,8 @@
 <div class="container-test">
+    <div class="loading-shade" *ngIf="loading">
+        <mat-spinner *ngIf="loading"></mat-spinner>
+        <div class="progress-text">{{progressText}}</div>
+    </div>
     <mat-toolbar color="white">
         <mat-toolbar-row>
             <span>
@@ -35,11 +39,16 @@
                             <mat-panel-description>
                                 <div class="omt-overall" [formGroup]="omtClassification">
                                     <mat-toolbar color="white">
-                                        <span style="flex: 1 1 auto;"></span>
+                                        <span style="flex: 1 1 auto;"></span>                                        
                                         <button mat-icon-button color="primary" *ngIf="!omtEdit">
                                             <mat-icon style="cursor: pointer;" (click)="editOMT()"
                                                 matTooltip="Ergebnis bearbeiten">
                                                 edit</mat-icon>
+                                        </button>
+                                        <button mat-icon-button color="primary" *ngIf="omtEdit && omtItemClassifications">
+                                            <mat-icon style="cursor: pointer;" (click)="classifyAllOMTs()"
+                                                matTooltip="Alle OMT's klassifizieren">
+                                                category</mat-icon>
                                         </button>
                                         <button mat-icon-button color="primary" *ngIf="omtEdit">
                                             <mat-icon style="cursor: pointer;" (click)="calculateOMT()"
@@ -47,7 +56,7 @@
                                                 flash_on</mat-icon>
                                         </button>
 
-                                        <button mat-icon-button color="primary" *ngIf="omtEdit">
+                                        <button mat-icon-button color="primary" *ngIf="omtEdit" [disabled]="!unsavedChanges">
                                             <mat-icon style="cursor: pointer;" (click)="saveChangesOMT()"
                                                 matTooltip="Speichern">
                                                 save</mat-icon>
@@ -237,6 +246,12 @@
                                             <mat-icon style="cursor: pointer;" (click)="editMUT()"
                                                 matTooltip="Ergebnis bearbeiten">
                                                 edit</mat-icon>
+                                        </button>
+
+                                        <button mat-icon-button color="primary" *ngIf="mutEdit">
+                                            <mat-icon style="cursor: pointer;" (click)="calculateMUT()"
+                                                matTooltip="Ergebnis berechnen">
+                                                flash_on</mat-icon>
                                         </button>
                                         
                                         <button mat-icon-button color="primary" *ngIf="mutEdit">

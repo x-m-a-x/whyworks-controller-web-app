@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService, IAppConfig } from './app-config.service';
-import { ClassificationResult } from '../entities';
+import { ClassificationResult, OMTClassification } from '../entities';
 import { BehaviorSubject } from 'rxjs';
+import { OMTClassificationService } from './omt-classification.service'
 
 
 export interface IClassifyBodyData {
@@ -32,11 +33,12 @@ export interface IClassificationResponse {
 @Injectable({ providedIn: 'root' })
 export class ClassificationService {
     public config: IAppConfig;
-    public response: BehaviorSubject<ClassificationResult> = new BehaviorSubject(null); 
+    public response: BehaviorSubject<ClassificationResult> = new BehaviorSubject(null);
 
     constructor(
         public http: HttpClient,
         public appConfigService: AppConfigService,
+        private omtClassificationService: OMTClassificationService,
     ) {
         this.appConfigService.getConfig()
             .then((config) => {
@@ -44,7 +46,7 @@ export class ClassificationService {
             });
     }
 
-    public async classifyAllDimensions(picture: number, text: string, text2: string = null, text3: string = null, omtId: number = -5): Promise<ClassificationResult> {
+    public async classifyAllDimensions(picture: number, text: string, text2: string = null, text3: string = null, omtId: number = -5, saveInCollection: boolean = false): Promise<ClassificationResult> {
         let result = new ClassificationResult();
 
         result.answer1 = text;
@@ -78,16 +80,40 @@ export class ClassificationService {
 
                 result.omtItemId = omtId;
                 this.response.next(result);
+
+                if (saveInCollection) {
+                    let omtClassifications = this.omtClassificationService.omtClassifications.getValue();
+                    if (omtClassifications?.findIndex(oic => oic.OMTSurveyItemId == result.omtItemId) == -1) {
+                        let omtClassification = new OMTClassification();
+                        omtClassification.OMTSurveyItemId = result.omtItemId;
+                        omtClassification.DimOneA = result.dim1_A;
+                        omtClassification.DimOneL = result.dim1_L;
+                        omtClassification.DimOneF = result.dim1_F;
+                        omtClassification.DimOneM = result.dim1_M;
+                        omtClassification.DimTwo1 = result.dim2_1;
+                        omtClassification.DimTwo2 = result.dim2_2;
+                        omtClassification.DimTwo3 = result.dim2_3;
+                        omtClassification.DimTwo4 = result.dim2_4;
+                        omtClassification.DimTwo5 = result.dim2_5;
+                        omtClassification.DimTwoNeg = result.dim2_neg > result.dim2_pos ? 1 : 0;
+                        omtClassification.DimTwoPos = result.dim2_pos >= result.dim2_neg ? 1 : 0;
+                        omtClassification.Timestamp = new Date();
+
+                        omtClassifications.push(omtClassification)
+                        this.omtClassificationService.omtClassifications.next(omtClassifications);
+                        
+                    }
+                }
                 return result;
             });
         }
-        catch(error) {
+        catch (error) {
             console.error(body_data);
             console.error(error);
             throw error;
         }
 
-             
+
         return result;
     }
 }

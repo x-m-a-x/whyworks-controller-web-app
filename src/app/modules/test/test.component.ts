@@ -1,15 +1,19 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { PersonalityTest, License, MUTSurvey, OMTSurvey, OMTSurveyItem, OMTClassification, OMTSurveyClassification, MUTSurveyItem, MUTSurveyClassification, Dimension1 } from '../../entities';
+import { PersonalityTest, License, MUTSurvey, OMTSurvey, OMTSurveyItem, OMTClassification, OMTSurveyClassification, MUTSurveyItem, MUTSurveyClassification  } from '../../entities';
 import {
     PersonalityTestService, LicenseService, OMTSurveyService, OMTSurveyItemService, OMTClassificationService,
     OMTSurveyClassificationService, MUTQuestionService, IMUTQuestion, MUTSurveyItemService,
-    MUTSurveyClassificationService, MUTSurveyService
+    MUTSurveyClassificationService, MUTSurveyService, ClassificationService, MUTParametereService, OMTTParameterService,
+    MUTMappingService
 } from '../../services';
 import { Location } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { Subscription } from "rxjs";
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
 
 @Component({
     selector: "test",
@@ -17,7 +21,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
     templateUrl: "./test.component.html"
 })
 
-export class TestComponent implements OnInit {
+export class TestComponent implements OnInit, OnDestroy {
     public personalityTest: PersonalityTest;
     public omtSurvey: OMTSurvey;
     public omtItems: OMTSurveyItem[];
@@ -32,6 +36,9 @@ export class TestComponent implements OnInit {
     public mutEdit: boolean = false;
     public isMobile: boolean;
     public mutQuestions: IMUTQuestion[];
+    public progressText: string = '';
+    public loading: boolean = false;
+    public unsavedChanges: boolean = false;
 
     public omtClassification: FormGroup;
     public mightControl = new FormControl();
@@ -52,6 +59,12 @@ export class TestComponent implements OnInit {
     public mutFreedomControl = new FormControl();
     public mutPerformanceControl = new FormControl();
 
+    private omtClassificationSubscription: Subscription;
+    private omtSurveyItemSubscription: Subscription;
+    private omtSurveySubscription: Subscription;
+    private omtSurveyClassificationSubscription: Subscription;
+    
+
 
     constructor(
         private deviceDetectorService: DeviceDetectorService,
@@ -69,6 +82,10 @@ export class TestComponent implements OnInit {
         private mutSurveyItemService: MUTSurveyItemService,
         private mutSurveyClassificationService: MUTSurveyClassificationService,
         private snackBar: MatSnackBar,
+        private classificationService: ClassificationService,
+        private mutParameterService: MUTParametereService,
+        private omtTParameterService: OMTTParameterService,
+        private mutMappingService: MUTMappingService
     ) {
         this.omtClassification = formBuilder.group({
             might: this.mightControl,
@@ -104,22 +121,22 @@ export class TestComponent implements OnInit {
 
             // OMT
             this.omtSurvey = this.omtSurveyService.omtSurveys.getValue()?.find(omt => omt.TestId == this.personalityTest?.Id);
-            if (!this.omtSurvey) {
-                this.omtSurveyService.omtSurveys.next(await this.omtSurveyService.getFromWebApi());
-                this.omtSurvey = this.omtSurveyService.omtSurveys.getValue()?.find(omt => omt.TestId == this.personalityTest?.Id);
-            }
+            this.omtSurveySubscription = this.omtSurveyService.omtSurveys.subscribe((omtSurveys) => {
+                this.omtSurvey = omtSurveys?.find(omt => omt.TestId == this.personalityTest?.Id);
+            });
+            
 
             this.omtItems = this.omtSurveyItemService.omtSurveyItems.getValue()?.filter(i => i.OMTSurveyID == this.omtSurvey.Id);
-            if (!this.omtItems) {
-                this.omtSurveyItemService.omtSurveyItems.next(await this.omtSurveyItemService.getFromWebApi());
-                this.omtItems = this.omtSurveyItemService.omtSurveyItems.getValue()?.filter(i => i.OMTSurveyID == this.omtSurvey?.Id);
-            }
+            this.omtSurveyItemSubscription = this.omtSurveyItemService.omtSurveyItems.subscribe((omtSurveyItems) => {
+                this.omtItems = omtSurveyItems?.filter(i => i.OMTSurveyID == this.omtSurvey?.Id);
+            })
+           
 
             this.omtItemClassifications = this.omtClassificationService.omtClassifications.getValue()?.filter(c => this.omtItems.findIndex(o => o.Id == c.OMTSurveyItemId) >= 0);
-            if (!this.omtItemClassifications) {
-                this.omtClassificationService.omtClassifications.next(await this.omtClassificationService.getFromWebApi());
-                this.omtItemClassifications = this.omtClassificationService.omtClassifications.getValue()?.filter(c => this.omtItems.findIndex(o => o.Id == c.OMTSurveyItemId) >= 0);
-            }
+            this.omtClassificationSubscription = this.omtClassificationService.omtClassifications.subscribe((omtClassifications) => {
+                this.omtItemClassifications = omtClassifications?.filter(c => this.omtItems.findIndex(o => o.Id == c.OMTSurveyItemId) >= 0);
+                this.unsavedChanges = this.omtItemClassifications?.findIndex(c => c.Id < 0) > -1;
+            })
 
             for (let i = 0; i < this.omtItems?.length; i++) {
                 let classification = this.omtItemClassifications?.find(c => c.OMTSurveyItemId == this.omtItems[i].Id);
@@ -132,10 +149,11 @@ export class TestComponent implements OnInit {
             }
 
             this.omtSurveyClassification = this.omtSurveyClassificationService.omtSurveyClassifications.getValue()?.find(c => c.OMTSurveyId == this.omtSurvey?.Id);
-            if (!this.omtSurveyClassification) {
-                this.omtSurveyClassificationService.omtSurveyClassifications.next(await this.omtSurveyClassificationService.getFromWebApi());
-                this.omtSurveyClassification = this.omtSurveyClassificationService.omtSurveyClassifications.getValue()?.find(c => c.OMTSurveyId == this.omtSurvey?.Id);
-            }
+            this.omtSurveyClassificationSubscription = this.omtSurveyClassificationService.omtSurveyClassifications.subscribe((omtSurveyClassifications) => {
+                this.omtSurveyClassification = omtSurveyClassifications?.find(c => c.OMTSurveyId == this.omtSurvey?.Id);
+                this.unsavedChanges = this.omtSurveyClassification?.Id < 0;
+            })
+            
 
             this.mightControl.setValue(this.omtSurveyClassification?.DimOneM);
             this.relationControl.setValue(this.omtSurveyClassification?.DimOneA);
@@ -187,14 +205,81 @@ export class TestComponent implements OnInit {
         // this.personalityTestService.getUnconsciousLevel(this.personalityTest?.Id, Dimension1.M);
     }
 
+    public async ngOnDestroy(): Promise<void> {
+        this.omtClassificationSubscription.unsubscribe();
+        this.omtSurveyItemSubscription.unsubscribe();
+        this.omtSurveySubscription.unsubscribe();
+        this.omtSurveyClassificationSubscription.unsubscribe();
+    }
+
     public getMUTQuestion(index: number): string {
         let question = this.mutQuestions.find(q => q.question == index);
         return question.de;
     }
 
+    public async calculateMUT(): Promise<void> {
+        
+        let might = 0;
+        let relation = 0;
+        let freedom = 0;
+        let performance = 0;
+
+        for (let i = 0; i < this.mutItems.length; i++) {
+            let question = this.mutItems[i].Question;
+            if (this.mutItems.length > 38) {
+                question = await this.mutMappingService.getShortQuestionNumber(question);
+                if (!question) {
+                    continue;
+                }
+            }
+
+            might += await this.mutParameterService.getMUTParam('M', question) * (this.mutItems[i].Answer - 1);
+            relation += await this.mutParameterService.getMUTParam('A', question) * (this.mutItems[i].Answer - 1);
+            freedom += await this.mutParameterService.getMUTParam('F', question) * (this.mutItems[i].Answer - 1);
+            performance += await this.mutParameterService.getMUTParam('L', question) * (this.mutItems[i].Answer - 1);
+            
+        }
+
+        this.mutMightControl.setValue(might.toFixed(1));
+        this.mutRelationControl.setValue(relation.toFixed(1));
+        this.mutFreedomControl.setValue(freedom.toFixed(1));
+        this.mutPerformanceControl.setValue(performance.toFixed(1));
+    }
 
     public backClicked() {
         this.location.back();
+    }
+
+    public async classifyAllOMTs(): Promise<void> {
+        
+        this.loading = true;
+
+        for (let i = 0; i < this.omtItems.length; i++) {
+            this.progressText =  (i + 1).toString() + " von 20";
+            if (this.omtItemClassifications?.findIndex(oic => oic.OMTSurveyItemId == this.omtItems[i].Id) >= 0) {
+                continue;
+            }
+
+            await this.classificationService.classifyAllDimensions(+this.omtItems[i].Image, this.omtItems[i].Answer1, this.omtItems[i].Answer2, this.omtItems[i].Answer3, this.omtItems[i].Id, true);
+            await delay(3000);
+            let pending = true;
+            let pendingDurations = 0;
+            while (pending) {
+                pending = this.omtItemClassifications?.findIndex(oic => oic.OMTSurveyItemId == this.omtItems[i].Id) == -1;
+                
+                await delay(3000);
+                pendingDurations += 1;
+                if (pendingDurations > 20 * 5) {
+                    console.error("Antwortzeit des Klassifizier-Service überschritten!");
+                    break;
+                }
+            }
+
+        }
+
+        
+        this.unsavedChanges = true;
+        this.loading = false;
     }
 
 
@@ -220,33 +305,39 @@ export class TestComponent implements OnInit {
 
 
         for (let i = 0; i < this.omtItemClassifications.length; i++) {
-            might += this.omtItemClassifications[i].DimOneM;
-            relation += this.omtItemClassifications[i].DimOneA;
-            freedom += this.omtItemClassifications[i].DimOneF;
-            performance += this.omtItemClassifications[i].DimOneL;
-            positive += this.omtItemClassifications[i].DimTwoPos;
-            negative += this.omtItemClassifications[i].DimTwoNeg;
-            one += this.omtItemClassifications[i].DimTwo1;
-            two += this.omtItemClassifications[i].DimTwo2;
-            three += this.omtItemClassifications[i].DimTwo3;
-            four += this.omtItemClassifications[i].DimTwo4;
-            five += this.omtItemClassifications[i].DimTwo5;
+            might += this.omtItemClassifications[i].DimOneM > Math.max(this.omtItemClassifications[i].DimOneA, this.omtItemClassifications[i].DimOneF, this.omtItemClassifications[i].DimOneL) ? 1 : 0;
+            relation += this.omtItemClassifications[i].DimOneA > Math.max(this.omtItemClassifications[i].DimOneM, this.omtItemClassifications[i].DimOneF, this.omtItemClassifications[i].DimOneL) ? 1 : 0;
+            freedom += this.omtItemClassifications[i].DimOneF > Math.max(this.omtItemClassifications[i].DimOneA, this.omtItemClassifications[i].DimOneM, this.omtItemClassifications[i].DimOneL) ? 1 : 0;
+            performance += this.omtItemClassifications[i].DimOneL > Math.max(this.omtItemClassifications[i].DimOneA, this.omtItemClassifications[i].DimOneF, this.omtItemClassifications[i].DimOneM) ? 1 : 0;
+            positive += this.omtItemClassifications[i].DimTwoPos > this.omtItemClassifications[i].DimTwoNeg ? 1 : 0;
+            negative += this.omtItemClassifications[i].DimTwoNeg > this.omtItemClassifications[i].DimTwoPos ? 1 : 0;
+            one += this.omtItemClassifications[i].DimTwo1 > Math.max(this.omtItemClassifications[i].DimTwo2, this.omtItemClassifications[i].DimTwo3, this.omtItemClassifications[i].DimTwo4, this.omtItemClassifications[i].DimTwo5) ? 1 : 0;
+            two += this.omtItemClassifications[i].DimTwo2 > Math.max(this.omtItemClassifications[i].DimTwo1, this.omtItemClassifications[i].DimTwo3, this.omtItemClassifications[i].DimTwo4, this.omtItemClassifications[i].DimTwo5) ? 1 : 0;
+            three += this.omtItemClassifications[i].DimTwo3 > Math.max(this.omtItemClassifications[i].DimTwo2, this.omtItemClassifications[i].DimTwo1, this.omtItemClassifications[i].DimTwo4, this.omtItemClassifications[i].DimTwo5) ? 1 : 0;
+            four += this.omtItemClassifications[i].DimTwo4 > Math.max(this.omtItemClassifications[i].DimTwo2, this.omtItemClassifications[i].DimTwo3, this.omtItemClassifications[i].DimTwo1, this.omtItemClassifications[i].DimTwo5) ? 1 : 0;
+            five += this.omtItemClassifications[i].DimTwo5 > Math.max(this.omtItemClassifications[i].DimTwo2, this.omtItemClassifications[i].DimTwo3, this.omtItemClassifications[i].DimTwo4, this.omtItemClassifications[i].DimTwo1) ? 1 : 0;
         }
 
-        this.mightControl.setValue((might * 100 / (this.omtItemClassifications?.length > 0 ? this.omtItemClassifications?.length : 1)).toFixed(1));
-        this.relationControl.setValue((relation * 100 / (this.omtItemClassifications?.length > 0 ? this.omtItemClassifications?.length : 1)).toFixed(1));
-        this.freedomControl.setValue((freedom * 100 / (this.omtItemClassifications?.length > 0 ? this.omtItemClassifications?.length : 1)).toFixed(1));
-        this.performanceControl.setValue((performance * 100 / (this.omtItemClassifications?.length > 0 ? this.omtItemClassifications?.length : 1)).toFixed(1));
-        this.positiveControl.setValue((positive * 100 / (this.omtItemClassifications?.length > 0 ? this.omtItemClassifications?.length : 1)).toFixed(1));
-        this.negativeControl.setValue((negative * 100 / (this.omtItemClassifications?.length > 0 ? this.omtItemClassifications?.length : 1)).toFixed(1));
-        this.oneControl.setValue((one * 100 / (this.omtItemClassifications?.length > 0 ? this.omtItemClassifications?.length : 1)).toFixed(1));
-        this.twoControl.setValue((two * 100 / (this.omtItemClassifications?.length > 0 ? this.omtItemClassifications?.length : 1)).toFixed(1));
-        this.threeControl.setValue((three * 100 / (this.omtItemClassifications?.length > 0 ? this.omtItemClassifications?.length : 1)).toFixed(1));
-        this.fourControl.setValue((four * 100 / (this.omtItemClassifications?.length > 0 ? this.omtItemClassifications?.length : 1)).toFixed(1));
-        this.fiveControl.setValue((five * 100 / (this.omtItemClassifications?.length > 0 ? this.omtItemClassifications?.length : 1)).toFixed(1));
+        let sumDimOne = might + relation + freedom + performance;
+        let sumDimTow = one + two + three + four + five;
+        let sumPosNeg = positive + negative;
+       
 
 
+        this.mightControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('M', might) * 20 / sumDimOne))).toFixed(0));
+        this.relationControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('A', relation) * 20 / sumDimOne))).toFixed(0));
+        this.freedomControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('F', freedom) * 20 / sumDimOne))).toFixed(0));
+        this.performanceControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('L', performance) * 20 / sumDimOne))).toFixed(0));
+        this.positiveControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('Pos', positive) * 20 / sumPosNeg))).toFixed(0));
+        this.negativeControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('Neg', negative) * 20 / sumPosNeg))).toFixed(0));
+        this.oneControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('1', one) * 20 / sumDimTow))).toFixed(0));
+        this.twoControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('2', two) * 20 / sumDimTow))).toFixed(0));
+        this.threeControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('3', three) * 20 / sumDimTow))).toFixed(0));
+        this.fourControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('4', four) * 20 / sumDimTow))).toFixed(0));
+        this.fiveControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('5', five) * 20 / sumDimTow))).toFixed(0));
 
+
+        this.unsavedChanges = true;
     }
 
     public async saveChangesOMT(): Promise<void> {
@@ -274,12 +365,24 @@ export class TestComponent implements OnInit {
         this.omtSurveyClassification = await this.omtSurveyClassificationService.setSingleToWebApi(this.omtSurveyClassification);
         this.omtSurveyClassificationService.omtSurveyClassifications.next(await this.omtSurveyClassificationService.getFromWebApi());
 
+        let itemClassification = this.omtItemClassifications;
+        console.log(itemClassification);
+        for (let i = 0; i < itemClassification?.length; i++) {
+            if (itemClassification[i].Id == 0) {
+                await this.omtClassificationService.setSingleToWebApi(itemClassification[i]);
+            }
+        }
+
+        this.omtClassificationService.omtClassifications.next(await this.omtClassificationService.getFromWebApi());
+        
         this.omtEdit = false;
         this.omtClassification.disable();
+        this.unsavedChanges = false;
 
         this.snackBar.open("Klassifizierung gespeichert.", "", {
             duration: 2000,
         });
+
 
     }
 

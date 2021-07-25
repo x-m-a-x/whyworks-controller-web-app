@@ -1,7 +1,8 @@
 import { Component, OnInit, } from "@angular/core";
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { LicenseService, EBookContentAreaService, EBookTextElementService, PersonalityTestService, AdditionalFieldDefinitionService } from '../../services';
+import { LicenseService, EBookContentAreaService, EBookTextElementService, PersonalityTestService, AdditionalFieldDefinitionService,
+     OMTClassificationService, OMTSurveyClassificationService, OMTSurveyItemService, OMTSurveyService } from '../../services';
 
 @Component({
     selector: "master",
@@ -20,7 +21,11 @@ export class MasterComponent implements OnInit {
         private eBookContentAreaService: EBookContentAreaService,
         private eBookTextElementService: EBookTextElementService,
         private personalityTestService: PersonalityTestService,
-        private additionalFieldDefinitionService: AdditionalFieldDefinitionService
+        private additionalFieldDefinitionService: AdditionalFieldDefinitionService,
+        private omtClassificationService: OMTClassificationService,
+        private omtSurveyClassificationService: OMTSurveyClassificationService,
+        private omtSurveyItemService: OMTSurveyItemService,
+        private omtSurveyService: OMTSurveyService
     ) { }
 
     public async ngOnInit(): Promise<void> {
@@ -39,7 +44,10 @@ export class MasterComponent implements OnInit {
         this.eBookTextElementService.eBookTextElements.next(await this.eBookTextElementService.getFromWebApi());
         this.personalityTestService.personalityTests.next(await this.personalityTestService.getFromWebApi());
         this.additionalFieldDefinitionService.additionalFieldDefinitions.next(await this.additionalFieldDefinitionService.getFromWebApi());
-        
+        this.omtSurveyService.omtSurveys.next(await this.omtSurveyService.getFromWebApi());
+        this.omtSurveyItemService.omtSurveyItems.next(await this.omtSurveyItemService.getFromWebApi());
+        this.omtSurveyClassificationService.omtSurveyClassifications.next(await this.omtSurveyClassificationService.getFromWebApi());
+        this.omtClassificationService.omtClassifications.next(await this.omtClassificationService.getFromWebApi());
     }
 
     
