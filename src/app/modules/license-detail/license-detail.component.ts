@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Router } from '@angular/router';
-import { LicenseService, PersonalityTestService, AdditionalFieldDefinitionService } from '../../services';
-import { License, PersonalityTest, TestType, AdditionalFieldDefinition } from '../../entities';
+import { LicenseService, PersonalityTestService, AdditionalFieldDefinitionService, UserService } from '../../services';
+import { License, PersonalityTest, TestType, AdditionalFieldDefinition, User } from '../../entities';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Location } from '@angular/common';
@@ -20,6 +20,7 @@ export class LicenseDetailComponent implements OnInit, OnDestroy {
     public edit: boolean = false;
     public licenseTypes: any[] = [];
     public isMobile: boolean = false;
+    public user: User;
 
     public licenseSettings: FormGroup;
     public licenseInfoControl = new FormControl();
@@ -32,6 +33,7 @@ export class LicenseDetailComponent implements OnInit, OnDestroy {
         private licenseService: LicenseService,
         private personalityTestService: PersonalityTestService,
         private additionalFieldDefinitionService: AdditionalFieldDefinitionService,
+        private userService: UserService,
         private formBuilder: FormBuilder,
         private deviceDetectorService: DeviceDetectorService,
         private location: Location,
@@ -59,6 +61,13 @@ export class LicenseDetailComponent implements OnInit, OnDestroy {
                 this.license.TestId = this.license.Test?.Id;
             }
             
+            if (!this.userService.users.getValue()) {
+                this.userService.users.next(await this.userService.getFromWebApi());
+            }
+
+            this.user = this.userService.users.getValue()?.find(user => user.LicenseId == this.license?.Id && user.LicenseId);
+            console.log(this.user);
+
         });
 
         this.addFieldDefsSubscription = this.additionalFieldDefinitionService.additionalFieldDefinitions.subscribe((addFieldDefs) => {

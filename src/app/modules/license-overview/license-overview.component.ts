@@ -10,6 +10,7 @@ import { LicenseAddDialogComponent } from './license-add-dialog.component';
 import { LicenseAddFieldsDialogComponent } from './liceense-add-fields-dialog.component';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 
 export interface iLicense {
     Id: number;
@@ -39,6 +40,7 @@ export class LicenseOverviewComponent implements OnInit, OnDestroy, AfterViewIni
     private licensesSubscription: Subscription;
 
     @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
     constructor(
@@ -60,13 +62,20 @@ export class LicenseOverviewComponent implements OnInit, OnDestroy, AfterViewIni
 
         // Subscription of Licenses
         this.licensesSubscription = this.licenseService.licenses.subscribe(async (licenses) => {
-            let iLicenses = [];
-            for (let i = 0; i < licenses?.length; i++) {
-                iLicenses.push(await this.mapToiLicense(licenses[i]));
+            console.log(this.dataSource?.data?.length);
+            if (!(this.dataSource?.data?.length > 0)) {
+
+                let iLicenses = [];
+                console.log("start");
+                for (let i = 0; i < licenses?.length; i++) {
+                    iLicenses.push(await this.mapToiLicense(licenses[i]));
+                }
+                console.log("end");
+                this.dataSource = new MatTableDataSource(iLicenses);
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator;
+                this.isLoadingLicenses = false;
             }
-            this.dataSource = new MatTableDataSource(iLicenses);
-            this.dataSource.sort = this.sort;
-            this.isLoadingLicenses = false;
         })
 
     }
@@ -76,6 +85,7 @@ export class LicenseOverviewComponent implements OnInit, OnDestroy, AfterViewIni
         if (!this.licenseService.licenses.getValue() || this.licenseService.licenses.getValue().length == 0) {
             this.licenseService.licenses.next(await this.licenseService.getLicensesSortedByDate());
         }
+        // this.dataSource.paginator = this.paginator;
     }
 
 
@@ -130,7 +140,7 @@ export class LicenseOverviewComponent implements OnInit, OnDestroy, AfterViewIni
         });
 
         dialogRef.afterClosed().subscribe(async result => {
-            
+
             this.additionalFieldDefinitionService.additionalFieldDefinitions.next(await this.additionalFieldDefinitionService.getFromWebApi());
         });
     }

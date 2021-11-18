@@ -82,6 +82,39 @@
                         <b>{{addFieldDefs?.length}}</b>
                     </td>
                 </tr>
+
+                <tr>
+                    <td>
+                        <b>Mail</b>
+                    </td>
+                    <td>
+                        {{user?.EMail}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Vorname</b>
+                    </td>
+                    <td>
+                        {{user?.FirstName}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Nachname</b>
+                    </td>
+                    <td>
+                        {{user?.LastName}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Geschlecht</b>
+                    </td>
+                    <td>
+                        {{user?.Gender == 1 ? 'maennlich' : (user?.Gender == 2 ? 'weiblich' : (user?.Gender == 3 ? 'divers' : ''))}}
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="details-footer">

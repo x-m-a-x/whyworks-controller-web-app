@@ -8,6 +8,9 @@ export class User extends CoreEntity {
     public Name: string;
     public EMail: string;
     public Password: string;
+    public FirstName: string;
+    public LastName: string;
+    public Gender: Gender;
     public Admin: boolean;
     public LicenseId?: number;
     public License?: License
@@ -17,6 +20,9 @@ export class User extends CoreEntity {
         let item = new User();
         item.Id = apiItem.Id;
         item.Name = apiItem.Name;
+        item.FirstName = apiItem.FirstName;
+        item.LastName = apiItem.LastName;
+        item.Gender = apiItem.Gender;
         item.EMail = apiItem.EMail;
         item.Password = apiItem.Password;
         item.Admin = apiItem.Admin;
@@ -29,6 +35,9 @@ export class User extends CoreEntity {
         const item: any = {
             Id: this.Id,
             Name: this.Name,
+            FirstName: this.FirstName,
+            LastName: this.LastName,
+            Gender: this.Gender,
             EMail: this.EMail,
             Password: this.Password,            
             Admin: this.Admin,
@@ -36,4 +45,11 @@ export class User extends CoreEntity {
         }
         return item;
     }
+}
+
+
+export enum Gender {
+    Male = 1,
+    Female,
+    Divers
 }

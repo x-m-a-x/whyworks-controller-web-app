@@ -17,6 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatDialogModule,
         MatSnackBarModule,
         MatSelectModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatPaginatorModule
     ],
     providers: [
         DatePipe
