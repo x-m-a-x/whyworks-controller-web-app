@@ -46,13 +46,15 @@ export class EBooksComponent implements OnInit, OnDestroy {
             this.contentAreas = contentAreas ? contentAreas.filter(ca => TestType[ca.TestType] == this.ebookType.toString()) : [];
             for (let i = 0; i < this.contentAreas?.length; i++) {
                 this.contentAreas[i].TextElements = this.eBookTextElementService.eBookTextElements.getValue()?.filter(te => te.EBookContentAreaId == this.contentAreas[i].Id);
+                this.contentAreas[i].TextElements?.sort((a, b) => (a.Order ? a.Order : a.Id * 100) < (b.Order ? b.Order : b.Id * 100) ? -1 : (a.Order ? a.Order : a.Id * 100) > (b.Order ? b.Order : b.Id * 100) ? 1 : 0);
             }
             this.contentAreas?.sort((a, b) => a.Order < b.Order ? -1 : a.Order > b.Order ? 1 : 0)
         });
 
         this.eBookTextElementsSubscription = this.eBookTextElementService.eBookTextElements.subscribe((textElements) => {
             for (let i = 0; i < this.contentAreas?.length; i++) {
-                this.contentAreas[i].TextElements = textElements.filter(te => te.EBookContentAreaId == this.contentAreas[i].Id);
+                this.contentAreas[i].TextElements = textElements?.filter(te => te.EBookContentAreaId == this.contentAreas[i].Id);
+                this.contentAreas[i].TextElements?.sort((a, b) => (a.Order ? a.Order : a.Id * 100) < (b.Order ? b.Order : b.Id * 100) ? -1 : (a.Order ? a.Order : a.Id * 100) > (b.Order ? b.Order : b.Id * 100) ? 1 : 0);
             }
         });
 
@@ -75,6 +77,8 @@ export class EBooksComponent implements OnInit, OnDestroy {
 
         dialogRef.afterClosed().subscribe(result => { });
     }
+
+    
 
     openAddItemDialog(): void {
         let ebookType = this.ebookType;
@@ -157,6 +161,21 @@ export class EBooksComponent implements OnInit, OnDestroy {
                 let textElement = this.editedContentArea.TextElements[i];
                 textElement.Text = text;
                 this.editedContentArea.TextElements[i] = textElement;
+                break;
+            }
+        }
+    }
+
+    public async onOrderChange(order: number, textId: number) {
+        if (+order < 1) {
+            return Promise.resolve();
+        }
+        for (let i = 0; i < this.editedContentArea?.TextElements?.length; i++) {
+            if (this.editedContentArea.TextElements[i].Id == textId) {
+                let textElement = this.editedContentArea.TextElements[i];
+                textElement.Order = +order;
+                this.editedContentArea.TextElements[i] = textElement;
+                console.log(this.editedContentArea.TextElements[i]);
                 break;
             }
         }

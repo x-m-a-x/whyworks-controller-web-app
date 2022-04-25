@@ -23,11 +23,23 @@
                 </mat-expansion-panel-header>
                 <mat-panel-description>
                     <table style="width: 100%;">
-                        
+
                         <tr>
                             <mat-sidenav-container class="content-area-container"
                                 *ngFor="let text of area.TextElements">
                                 <mat-sidenav #sidenav mode="side" opened class="sidenav">
+                                    <div *ngIf="editContentAreaId != area.Id">
+                                        {{text.Order ? text.Order : text.Id * 100}}
+                                    </div>
+                                    <div *ngIf="editContentAreaId == area.Id">
+                                        <!-- Order  -->
+                                        <mat-form-field>
+
+                                            <textarea type="number" matInput
+                                                (input)="onOrderChange($event.target.value, text.Id)" required
+                                                value="{{text.Order ? text.Order : text.Id * 100}}"></textarea>
+                                        </mat-form-field>
+                                    </div>
                                     <table>
                                         <tr *ngIf="text.Unconscious">
                                             {{translateUnconscious(text.Unconscious)}}
@@ -45,26 +57,32 @@
                                             {{translateSpecialCase(text.SpecialCase)}}
                                         </tr>
                                     </table>
-                                    
+
                                 </mat-sidenav>
                                 <mat-sidenav-content>
                                     <div class="content-area">
                                         <div *ngIf="editContentAreaId != area.Id">
                                             {{text.Text}}
 
+
                                         </div>
+
                                         <mat-form-field *ngIf="editContentAreaId == area.Id" class="text-input-field">
                                             <!-- <mat-label>Name</mat-label> -->
-                                            <textarea class="textarea-input" type="text" matInput (input)="onTextChange($event.target.value, text.Id)"
-                                                required value="{{text.Text}}"></textarea>
+                                            <textarea class="textarea-input" type="text" matInput
+                                                (input)="onTextChange($event.target.value, text.Id)" required
+                                                value="{{text.Text}}"></textarea>
                                         </mat-form-field>
+
+
                                     </div>
-                                    <mat-toolbar *ngIf="editContentAreaId == area.Id" class="sub-toolbar-content-area" color="white">
+                                    <mat-toolbar *ngIf="editContentAreaId == area.Id" class="sub-toolbar-content-area"
+                                        color="white">
                                         <span style="flex: 1 1 auto;"></span>
                                         <mat-icon style="padding: 0 14px; cursor: pointer;"
                                             (click)="deleteTextElement(text)" matTooltip="Text löschen">
                                             delete</mat-icon>
-       
+
                                     </mat-toolbar>
                                     <mat-divider *ngIf="area.TextElements.length > 1"></mat-divider>
                                 </mat-sidenav-content>

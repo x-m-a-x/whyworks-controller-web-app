@@ -11,6 +11,7 @@ export class EBookTextElement extends CoreEntity {
     public SelfAssessment?: SelfAssessment;
     public Energization?: Energization;
     public SpecialCase?: SpecialCase;
+    public Order?: number;
 
 
     public static createFromApiItem(apiItem: EBookTextElement): EBookTextElement {
@@ -23,6 +24,7 @@ export class EBookTextElement extends CoreEntity {
         item.SelfAssessment = apiItem.SelfAssessment;
         item.Energization = apiItem.Energization;
         item.SpecialCase = apiItem.SpecialCase;
+        item.Order = apiItem.Order;
 
         return item;
     }
@@ -36,7 +38,8 @@ export class EBookTextElement extends CoreEntity {
             Congruence: this.Congruence ? Congruence[this.Congruence] : 0,
             SelfAssessment: this.SelfAssessment ? SelfAssessment[this.SelfAssessment] : 0,
             Energization: this.Energization ? Energization[this.Energization] : 0,
-            SpecialCase: this.SpecialCase ? SpecialCase[this.SpecialCase] : 0
+            SpecialCase: this.SpecialCase ? SpecialCase[this.SpecialCase] : 0,
+            Order: this.Order
         }
         return item;
     }
