@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 import { OMTSurveyItem, OMTClassification, ClassificationResult } from '../../entities';
-import { ClassificationService, OMTClassificationService } from '../../services';
+import { ClassificationService, OMTClassificationService, OMTSurveyItemService } from '../../services';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from "rxjs";
+import { MatDialog } from "@angular/material/dialog";
+import { OMTItemDeleteComponent } from './omt-item-delete-dialog';
 
 @Component({
     selector: "omt-item",
@@ -16,7 +18,7 @@ export class OmtItemComponent implements OnInit, OnDestroy {
     public classificationResult: ClassificationResult;
     public omtClassification: OMTClassification;
     public edit: boolean = false;
-    
+
     private omtClassificationSubscription: Subscription;
     private omtClassificationResponseSubscription: Subscription;
 
@@ -38,6 +40,8 @@ export class OmtItemComponent implements OnInit, OnDestroy {
         private snackBar: MatSnackBar,
         private classificationService: ClassificationService,
         private omtClassificationService: OMTClassificationService,
+        private omtSurveyItemService: OMTSurveyItemService,
+        public dialog: MatDialog,
     ) {
         this.image_classification = formBuilder.group({
             might: this.mightControl,
@@ -58,7 +62,7 @@ export class OmtItemComponent implements OnInit, OnDestroy {
 
         this.omtClassificationSubscription = this.omtClassificationService.omtClassifications.subscribe((omtClassifications) => {
             this.omtClassification = omtClassifications?.find(c => c.OMTSurveyItemId == this.omt.Id);
-            
+
 
             this.mightControl.setValue(this.omtClassification?.DimOneM);
             this.relationControl.setValue(this.omtClassification?.DimOneA);
@@ -75,9 +79,9 @@ export class OmtItemComponent implements OnInit, OnDestroy {
             this.fiveControl.setValue(this.omtClassification?.DimTwo5);
 
         })
-        
+
         this.omtClassification = this.omtClassificationService.omtClassifications.getValue()?.find(c => c.OMTSurveyItemId == this.omt.Id);
-        
+
 
         this.mightControl.setValue(this.omtClassification?.DimOneM);
         this.relationControl.setValue(this.omtClassification?.DimOneA);
@@ -129,7 +133,7 @@ export class OmtItemComponent implements OnInit, OnDestroy {
 
     public async saveChanges(): Promise<void> {
         if (!this.omtClassification) {
-            this.omtClassification = new OMTClassification;            
+            this.omtClassification = new OMTClassification;
             this.omtClassification.OMTSurveyItemId = this.omt.Id;
         }
 
@@ -188,4 +192,16 @@ export class OmtItemComponent implements OnInit, OnDestroy {
     }
 
 
+    public async delete(omtItem: any): Promise<void> {
+
+        const dialogRef = this.dialog.open(OMTItemDeleteComponent, {
+            width: '80%',
+            data: { omtItem }
+        });
+
+        dialogRef.afterClosed().subscribe(async result => {
+            this.omtSurveyItemService.omtSurveyItems.next(await this.omtSurveyItemService.getFromWebApi());            
+        });
+
+    }
 }

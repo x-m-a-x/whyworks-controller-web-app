@@ -13,6 +13,7 @@ export class License extends CoreEntity {
     public TestId?: number;
     public Info: string;
     public Test?: PersonalityTest; 
+    
 
     public static createFromApiItem(apiItem: License): License {
         let item = new License();

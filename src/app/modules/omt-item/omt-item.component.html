@@ -41,6 +41,11 @@
         <mat-toolbar class="sub-toolbar-content-area" color="white">
             <span style="flex: 1 1 auto;"></span>
             <button mat-icon-button color="primary" *ngIf="!edit">
+                <mat-icon style="cursor: pointer;" (click)="delete(omt)" matTooltip="OMT Item löschen">
+                    delete</mat-icon>
+            </button>
+
+            <button mat-icon-button color="primary" *ngIf="!edit">
                 <mat-icon style="cursor: pointer;" (click)="editClassification()"
                     matTooltip="Klassifizierung bearbeiten">
                     edit</mat-icon>
@@ -59,6 +64,8 @@
                 <mat-icon style="cursor: pointer;" (click)="cancelChanges()" matTooltip="Abbrechen">
                     undo</mat-icon>
             </button>
+
+            
 
         </mat-toolbar>
 

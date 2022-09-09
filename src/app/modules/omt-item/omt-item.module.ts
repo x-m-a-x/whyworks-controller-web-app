@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OmtItemRoutingModule } from './omt-item-routing.module';
 import { OmtItemComponent } from './omt-item.component';
+import { OMTItemDeleteComponent } from './omt-item-delete-dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from "@angular/material/icon";
@@ -21,7 +22,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [
-        OmtItemComponent
+        OmtItemComponent,
+        OMTItemDeleteComponent
     ],
     imports: [
         CommonModule,
@@ -44,9 +46,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         MatProgressSpinnerModule
     ],
     exports: [
-        OmtItemComponent
+        OmtItemComponent        
     ],
-    providers: [        
+    providers: [
     ]
 })
 
