@@ -56,6 +56,12 @@
                                                 flash_on</mat-icon>
                                         </button>
 
+                                        <button mat-icon-button color="primary" *ngIf="omtEdit">
+                                            <mat-icon style="cursor: pointer;" (click)="calculateOMTAdvanced()"
+                                                matTooltip="Ergebnis berechnen (Advanced)">
+                                                flash_auto</mat-icon>
+                                        </button>
+
                                         <button mat-icon-button color="primary" *ngIf="omtEdit" [disabled]="!unsavedChanges">
                                             <mat-icon style="cursor: pointer;" (click)="saveChangesOMT()"
                                                 matTooltip="Speichern">
@@ -72,6 +78,14 @@
 
                                     <div *ngIf="!isMobile">
                                         <table>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <mat-form-field appearance="fill" class="omt_score_input">
+                                                        <mat-label>Min. W-keit zur Berechnung (advanced)</mat-label>
+                                                        <input matInput type="number" [formControl]="minProbControl">
+                                                    </mat-form-field>
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <td>
                                                     <mat-form-field appearance="fill" class="omt_score_input">

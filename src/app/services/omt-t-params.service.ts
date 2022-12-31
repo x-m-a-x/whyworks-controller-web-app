@@ -50,19 +50,27 @@ export class OMTTParameterService {
 
     public async getOMTMean(dim: string): Promise<number> {
         await this.getParams();
-        
+
         return Promise.resolve(this.omtParams[dim].Mean);
     }
 
     public async getOMTVar(dim: string): Promise<number> {
         await this.getParams();
-        
+
         return Promise.resolve(this.omtParams[dim].Var);
     }
 
     public async getQuantile(dim: string, number: number): Promise<number> {
         await this.getParams();
-        return Promise.resolve(this.omtParams[dim][number]);
+        if (await this.isInt(number)) {
+            return Promise.resolve(this.omtParams[dim][number]);
+        }
+
+        const lowerQuant = this.omtParams[dim][Math.floor(number)];
+        const upperQuant = this.omtParams[dim][Math.min(20,Math.floor(number) + 1)];
+
+        return Promise.resolve(lowerQuant + (number - Math.floor(number)) * (upperQuant - lowerQuant));
+
     }
 
     private async getParams(): Promise<void> {
@@ -77,6 +85,10 @@ export class OMTTParameterService {
                     return Promise.reject(error.message || error);
                 })
         }
+    }
+
+    private async isInt(n: number): Promise<boolean> {
+        return Promise.resolve(n % 1 === 0);
     }
 
 

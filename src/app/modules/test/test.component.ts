@@ -52,6 +52,7 @@ export class TestComponent implements OnInit, OnDestroy {
     public threeControl = new FormControl();
     public fourControl = new FormControl();
     public fiveControl = new FormControl();
+    public minProbControl = new FormControl();
 
     public mutClassification: FormGroup;
     public mutMightControl = new FormControl();
@@ -98,7 +99,8 @@ export class TestComponent implements OnInit, OnDestroy {
             two: this.twoControl,
             three: this.threeControl,
             four: this.fourControl,
-            five: this.fiveControl
+            five: this.fiveControl,
+            minProb: this.minProbControl,
         });
 
         this.mutClassification = formBuilder.group({
@@ -166,6 +168,8 @@ export class TestComponent implements OnInit, OnDestroy {
             this.threeControl.setValue(this.omtSurveyClassification?.DimTwo3);
             this.fourControl.setValue(this.omtSurveyClassification?.DimTwo4);
             this.fiveControl.setValue(this.omtSurveyClassification?.DimTwo5);
+
+            this.minProbControl.setValue(0.2);
 
             this.omtClassification.disable();
 
@@ -286,6 +290,68 @@ export class TestComponent implements OnInit, OnDestroy {
     public async editOMT(): Promise<void> {
         this.omtEdit = true;
         this.omtClassification.enable();
+    }
+
+    public async calculateOMTAdvanced(): Promise<void> {
+        this.omtItemClassifications = this.omtClassificationService.omtClassifications.getValue()?.filter(c => this.omtItems.findIndex(o => o.Id == c.OMTSurveyItemId) >= 0);
+        let might = 0;
+        let relation = 0;
+        let freedom = 0;
+        let performance = 0;
+        let positive = 0;
+        let negative = 0;
+        let one = 0;
+        let two = 0;
+        let three = 0;
+        let four = 0;
+        let five = 0;
+
+
+        let numberOfCountedItems = 0;
+        
+
+        for (let i = 0; i < this.omtItemClassifications.length; i++) {
+            let sumProbs = this.omtItemClassifications[i].DimOneM > (this.minProbControl.value ?? 0.2) ? this.omtItemClassifications[i].DimOneM : 0;
+            sumProbs += this.omtItemClassifications[i].DimOneA > (this.minProbControl.value ?? 0.2) ? this.omtItemClassifications[i].DimOneA : 0;
+            sumProbs += this.omtItemClassifications[i].DimOneF > (this.minProbControl.value ?? 0.2) ? this.omtItemClassifications[i].DimOneF : 0;
+            sumProbs += this.omtItemClassifications[i].DimOneL > (this.minProbControl.value ?? 0.2) ? this.omtItemClassifications[i].DimOneL : 0;
+
+
+            might += this.omtItemClassifications[i].DimOneM > (this.minProbControl.value ?? 0.2) ? this.omtItemClassifications[i].DimOneM / sumProbs : 0;
+            relation += this.omtItemClassifications[i].DimOneA > (this.minProbControl.value ?? 0.2) ? this.omtItemClassifications[i].DimOneA / sumProbs : 0;
+            freedom += this.omtItemClassifications[i].DimOneF > (this.minProbControl.value ?? 0.2) ? this.omtItemClassifications[i].DimOneF / sumProbs : 0;
+            performance += this.omtItemClassifications[i].DimOneL > (this.minProbControl.value ?? 0.2) ? this.omtItemClassifications[i].DimOneL / sumProbs : 0;
+            positive += this.omtItemClassifications[i].DimTwoPos > this.omtItemClassifications[i].DimTwoNeg ? 1 : 0;
+            negative += this.omtItemClassifications[i].DimTwoNeg > this.omtItemClassifications[i].DimTwoPos ? 1 : 0;
+            one += this.omtItemClassifications[i].DimTwo1 > Math.max(this.omtItemClassifications[i].DimTwo2, this.omtItemClassifications[i].DimTwo3, this.omtItemClassifications[i].DimTwo4, this.omtItemClassifications[i].DimTwo5) ? 1 : 0;
+            two += this.omtItemClassifications[i].DimTwo2 > Math.max(this.omtItemClassifications[i].DimTwo1, this.omtItemClassifications[i].DimTwo3, this.omtItemClassifications[i].DimTwo4, this.omtItemClassifications[i].DimTwo5) ? 1 : 0;
+            three += this.omtItemClassifications[i].DimTwo3 > Math.max(this.omtItemClassifications[i].DimTwo2, this.omtItemClassifications[i].DimTwo1, this.omtItemClassifications[i].DimTwo4, this.omtItemClassifications[i].DimTwo5) ? 1 : 0;
+            four += this.omtItemClassifications[i].DimTwo4 > Math.max(this.omtItemClassifications[i].DimTwo2, this.omtItemClassifications[i].DimTwo3, this.omtItemClassifications[i].DimTwo1, this.omtItemClassifications[i].DimTwo5) ? 1 : 0;
+            five += this.omtItemClassifications[i].DimTwo5 > Math.max(this.omtItemClassifications[i].DimTwo2, this.omtItemClassifications[i].DimTwo3, this.omtItemClassifications[i].DimTwo4, this.omtItemClassifications[i].DimTwo1) ? 1 : 0;
+
+            if (sumProbs > 0) {
+                numberOfCountedItems += 1;
+            }
+        }
+
+        
+        let sumDimTow = one + two + three + four + five;
+        let sumPosNeg = positive + negative;
+       
+        this.mightControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('M', might) * 20 / numberOfCountedItems))).toFixed(0));
+        this.relationControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('A', relation) * 20 / numberOfCountedItems))).toFixed(0));
+        this.freedomControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('F', freedom) * 20 / numberOfCountedItems))).toFixed(0));
+        this.performanceControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('L', performance) * 20 / numberOfCountedItems))).toFixed(0));
+        this.positiveControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('Pos', positive) * 20 / sumPosNeg))).toFixed(0));
+        this.negativeControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('Neg', negative) * 20 / sumPosNeg))).toFixed(0));
+        this.oneControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('1', one) * 20 / sumDimTow))).toFixed(0));
+        this.twoControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('2', two) * 20 / sumDimTow))).toFixed(0));
+        this.threeControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('3', three) * 20 / sumDimTow))).toFixed(0));
+        this.fourControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('4', four) * 20 / sumDimTow))).toFixed(0));
+        this.fiveControl.setValue(Math.max(20, Math.min(80, (await this.omtTParameterService.getQuantile('5', five) * 20 / sumDimTow))).toFixed(0));
+
+
+        this.unsavedChanges = true;
     }
 
     public async calculateOMT(): Promise<void> {
