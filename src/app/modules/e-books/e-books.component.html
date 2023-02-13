@@ -61,13 +61,13 @@
                                 </mat-sidenav>
                                 <mat-sidenav-content>
                                     <div class="content-area">
-                                        <div *ngIf="editContentAreaId != area.Id" style="font-size: 14px;">
+                                        <div *ngIf="editContentAreaId != area.Id" style="font-size: 16px;">
                                             {{text.Text}}
 
 
                                         </div>
 
-                                        <mat-form-field *ngIf="editContentAreaId == area.Id" class="text-input-field" style="font-size: 14px;">
+                                        <mat-form-field *ngIf="editContentAreaId == area.Id" class="text-input-field" style="font-size: 16px;">
                                             <!-- <mat-label>Name</mat-label> -->
                                             <textarea class="textarea-input" type="text" matInput
                                                 (input)="onTextChange($event.target.value, text.Id)" required
